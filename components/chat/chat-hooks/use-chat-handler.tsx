@@ -277,6 +277,7 @@ export const useChatHandler = () => {
           profile!,
           chatImages
         )
+        //
         const response = await fetch(
           "https://mystratusaiservice-staging.azurewebsites.net/helpdocs",
           {
