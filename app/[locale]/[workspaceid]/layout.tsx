@@ -58,20 +58,20 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    ;(async () => {
-      const session = (await supabase.auth.getSession()).data.session
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const session = (await supabase.auth.getSession()).data.session
 
-      if (!session) {
-        return router.push("/login")
-      } else {
-        await fetchWorkspaceData(workspaceId)
-      }
-    })()
-  }, [])
+  //     if (!session) {
+  //       return router.push("/login")
+  //     } else {
+  //       await fetchWorkspaceData(workspaceId)
+  //     }
+  //   })()
+  // }, [])
 
   useEffect(() => {
-    ;(async () => await fetchWorkspaceData(workspaceId))()
+    // ;(async () => await fetchWorkspaceData(workspaceId))()
 
     setUserInput("")
     setChatMessages([])
@@ -130,30 +130,30 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
       }
     }
 
-    const chats = await getChatsByWorkspaceId(workspaceId)
-    setChats(chats)
+    // const chats = await getChatsByWorkspaceId(workspaceId)
+    // setChats(chats)
 
-    const collectionData =
-      await getCollectionWorkspacesByWorkspaceId(workspaceId)
-    setCollections(collectionData.collections)
+    // const collectionData =
+    //   await getCollectionWorkspacesByWorkspaceId(workspaceId)
+    // setCollections(collectionData.collections)
 
-    const folders = await getFoldersByWorkspaceId(workspaceId)
-    setFolders(folders)
+    // const folders = await getFoldersByWorkspaceId(workspaceId)
+    // setFolders(folders)
 
-    const fileData = await getFileWorkspacesByWorkspaceId(workspaceId)
-    setFiles(fileData.files)
+    // const fileData = await getFileWorkspacesByWorkspaceId(workspaceId)
+    // setFiles(fileData.files)
 
-    const presetData = await getPresetWorkspacesByWorkspaceId(workspaceId)
-    setPresets(presetData.presets)
+    // const presetData = await getPresetWorkspacesByWorkspaceId(workspaceId)
+    // setPresets(presetData.presets)
 
-    const promptData = await getPromptWorkspacesByWorkspaceId(workspaceId)
-    setPrompts(promptData.prompts)
+    // const promptData = await getPromptWorkspacesByWorkspaceId(workspaceId)
+    // setPrompts(promptData.prompts)
 
-    const toolData = await getToolWorkspacesByWorkspaceId(workspaceId)
-    setTools(toolData.tools)
+    // const toolData = await getToolWorkspacesByWorkspaceId(workspaceId)
+    // setTools(toolData.tools)
 
-    const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
-    setModels(modelData.models)
+    // const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
+    // setModels(modelData.models)
 
     setChatSettings({
       model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,
@@ -172,9 +172,9 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setLoading(false)
   }
 
-  if (loading) {
-    return <Loading />
-  }
+  // if (loading) {
+  //   return <Loading />
+  // }
 
   return <Dashboard>{children}</Dashboard>
 }

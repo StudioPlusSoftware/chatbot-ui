@@ -45,7 +45,7 @@ export async function buildFinalMessages(
 
   const BUILT_PROMPT = buildBasePrompt(
     chatSettings.prompt,
-    chatSettings.includeProfileContext ? profile.profile_context || "" : "",
+    chatSettings.includeProfileContext ? profile?.profile_context || "" : "",
     chatSettings.includeWorkspaceInstructions ? workspaceInstructions : "",
     assistant
   )

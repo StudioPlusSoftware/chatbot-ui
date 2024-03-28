@@ -194,7 +194,6 @@ export const useChatHandler = () => {
     isRegeneration: boolean
   ) => {
     const startingInput = messageContent
-
     try {
       setUserInput("")
       setIsGenerating(true)
@@ -219,13 +218,13 @@ export const useChatHandler = () => {
         ...availableOpenRouterModels
       ].find(llm => llm.modelId === chatSettings?.model)
 
-      validateChatSettings(
-        chatSettings,
-        modelData,
-        profile,
-        selectedWorkspace,
-        messageContent
-      )
+      // validateChatSettings(
+      //   chatSettings,
+      //   modelData,
+      //   profile,
+      //   selectedWorkspace,
+      //   messageContent
+      // )
 
       let currentChat = selectedChat ? { ...selectedChat } : null
 
@@ -261,7 +260,7 @@ export const useChatHandler = () => {
 
       let payload: ChatPayload = {
         chatSettings: chatSettings!,
-        workspaceInstructions: selectedWorkspace!.instructions || "",
+        workspaceInstructions: selectedWorkspace?.instructions || "",
         chatMessages: isRegeneration
           ? [...chatMessages]
           : [...chatMessages, tempUserChatMessage],
@@ -269,19 +268,18 @@ export const useChatHandler = () => {
         messageFileItems: retrievedFileItems,
         chatFileItems: chatFileItems
       }
-
       let generatedText = ""
-
-      if (selectedTools.length > 0) {
+      if (true || selectedTools.length > 0) {
         setToolInUse("Tools")
+        alert("calling api")
 
         const formattedMessages = await buildFinalMessages(
           payload,
           profile!,
           chatImages
         )
-
-        const response = await fetch("/api/chat/tools", {
+        alert("calling api")
+        const response = await fetch("https://localhost:7063/helpdocs", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

@@ -124,6 +124,8 @@ export const createTempMessages = (
 
   let newMessages = []
 
+
+
   if (isRegeneration) {
     const lastMessageIndex = chatMessages.length - 1
     chatMessages[lastMessageIndex].message.content = ""
@@ -160,7 +162,7 @@ export const handleLocalChat = async (
 
   // Ollama API: https://github.com/jmorganca/ollama/blob/main/docs/api.md
   const response = await fetchChatResponse(
-    process.env.NEXT_PUBLIC_OLLAMA_URL + "/api/chat",
+    process.env.NEXT_PUBLIC_OLLAMA_URL + "/api/test",
     {
       model: chatSettings.model,
       messages: formattedMessages,
@@ -257,8 +259,11 @@ export const fetchChatResponse = async (
   setIsGenerating: React.Dispatch<React.SetStateAction<boolean>>,
   setChatMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
 ) => {
-  const response = await fetch(url, {
+  const response = await fetch("https://localhost:7063/helpdocs", {
     method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    },
     body: JSON.stringify(body),
     signal: controller.signal
   })

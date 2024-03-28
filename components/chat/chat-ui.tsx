@@ -55,26 +55,26 @@ export const ChatUI: FC<ChatUIProps> = ({}) => {
     scrollToTop
   } = useScroll()
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchMessages()
-      await fetchChat()
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await fetchMessages()
+  //     await fetchChat()
 
-      scrollToBottom()
-      setIsAtBottom(true)
-    }
+  //     scrollToBottom()
+  //     setIsAtBottom(true)
+  //   }
 
-    if (params.chatid) {
-      fetchData().then(() => {
-        handleFocusChatInput()
-        setLoading(false)
-      })
-    } else {
-      setLoading(false)
-    }
-  }, [])
+  //   if (params.chatid) {
+  //     fetchData().then(() => {
+  //       handleFocusChatInput()
+  //       setLoading(false)
+  //     })
+  //   } else {
+  //     setLoading(false)
+  //   }
+  // }, [])
 
   const fetchMessages = async () => {
     const fetchedMessages = await getMessagesByChatId(params.chatid as string)
@@ -181,9 +181,9 @@ export const ChatUI: FC<ChatUIProps> = ({}) => {
     })
   }
 
-  if (loading) {
-    return <Loading />
-  }
+  // if (loading) {
+  //   return <Loading />
+  // }
 
   return (
     <div className="relative flex h-full flex-col items-center">
