@@ -271,25 +271,26 @@ export const useChatHandler = () => {
       let generatedText = ""
       if (true || selectedTools.length > 0) {
         setToolInUse("Tools")
-        alert("calling api")
 
         const formattedMessages = await buildFinalMessages(
           payload,
           profile!,
           chatImages
         )
-        alert("calling api")
-        const response = await fetch("https://localhost:7063/helpdocs", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            chatSettings: payload.chatSettings,
-            messages: formattedMessages,
-            selectedTools
-          })
-        })
+        const response = await fetch(
+          "https://mystratusaiservice-staging.azurewebsites.net/helpdocs",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              chatSettings: payload.chatSettings,
+              messages: formattedMessages,
+              selectedTools
+            })
+          }
+        )
 
         setToolInUse("none")
 
