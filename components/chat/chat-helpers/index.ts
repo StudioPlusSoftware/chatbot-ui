@@ -259,6 +259,7 @@ export const fetchChatResponse = async (
   setIsGenerating: React.Dispatch<React.SetStateAction<boolean>>,
   setChatMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
 ) => {
+  //
   const response = await fetch("https://mystratusaiservice-staging.azurewebsites.net/helpdocs", {
     method: "POST",
     headers: {
