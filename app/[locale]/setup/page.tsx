@@ -10,7 +10,7 @@ import {
   fetchHostedModels,
   fetchOpenRouterModels
 } from "@/lib/models/fetch-models"
-import { supabase } from "@/lib/supabase/browser-client"
+// import { supabase } from "@/lib/supabase/browser-client"
 import { TablesUpdate } from "@/supabase/types"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
@@ -61,43 +61,43 @@ export default function SetupPage() {
   const [perplexityAPIKey, setPerplexityAPIKey] = useState("")
   const [openrouterAPIKey, setOpenrouterAPIKey] = useState("")
 
-  useEffect(() => {
-    ;(async () => {
-      const session = (await supabase.auth.getSession()).data.session
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const session = (await supabase.auth.getSession()).data.session
 
-      if (!session) {
-        return router.push("/login")
-      } else {
-        const user = session.user
+  //     if (!session) {
+  //       return router.push("/login")
+  //     } else {
+  //       const user = session.user
 
-        // const profile = await getProfileByUserId(user.id)
-        // setProfile(profile)
-        // setUsername(profile.username)
+  //       // const profile = await getProfileByUserId(user.id)
+  //       // setProfile(profile)
+  //       // setUsername(profile.username)
 
-        // if (!profile.has_onboarded) {
-        //   setLoading(false)
-        // } else {
-        //   const data = await fetchHostedModels(profile)
+  //       // if (!profile.has_onboarded) {
+  //       //   setLoading(false)
+  //       // } else {
+  //       //   const data = await fetchHostedModels(profile)
 
-        //   if (!data) return
+  //       //   if (!data) return
 
-        //   setEnvKeyMap(data.envKeyMap)
-        //   setAvailableHostedModels(data.hostedModels)
+  //       //   setEnvKeyMap(data.envKeyMap)
+  //       //   setAvailableHostedModels(data.hostedModels)
 
-        //   if (profile["openrouter_api_key"] || data.envKeyMap["openrouter"]) {
-        //     const openRouterModels = await fetchOpenRouterModels()
-        //     if (!openRouterModels) return
-        //     setAvailableOpenRouterModels(openRouterModels)
-        //   }
+  //       //   if (profile["openrouter_api_key"] || data.envKeyMap["openrouter"]) {
+  //       //     const openRouterModels = await fetchOpenRouterModels()
+  //       //     if (!openRouterModels) return
+  //       //     setAvailableOpenRouterModels(openRouterModels)
+  //       //   }
 
-        //   const homeWorkspaceId = await getHomeWorkspaceByUserId(
-        //     session.user.id
-        //   )
-        //   return router.push(`/${homeWorkspaceId}/chat`)
-        // }
-      }
-    })()
-  }, [])
+  //       //   const homeWorkspaceId = await getHomeWorkspaceByUserId(
+  //       //     session.user.id
+  //       //   )
+  //       //   return router.push(`/${homeWorkspaceId}/chat`)
+  //       // }
+  //     }
+  //   })()
+  // }, [])
 
   const handleShouldProceed = (proceed: boolean) => {
     if (proceed) {
@@ -112,14 +112,12 @@ export default function SetupPage() {
   }
 
   const handleSaveSetupSetting = async () => {
-    const session = (await supabase.auth.getSession()).data.session
-    if (!session) {
-      return router.push("/login")
-    }
-
-    const user = session.user
+    // const session = (await supabase.auth.getSession()).data.session
+    // if (!session) {
+    //   return router.push("/login")
+    // }
+    // const user = session.user
     // const profile = await getProfileByUserId(user.id)
-
     // const updateProfilePayload: TablesUpdate<"profiles"> = {
     //   ...profile,
     //   has_onboarded: true,
@@ -141,17 +139,13 @@ export default function SetupPage() {
     //   azure_openai_45_vision_id: azureOpenai45VisionID,
     //   azure_openai_embeddings_id: azureOpenaiEmbeddingsID
     // }
-
     // const updatedProfile = await updateProfile(profile.id, updateProfilePayload)
     // setProfile(updatedProfile)
-
     // const workspaces = await getWorkspacesByUserId(profile.user_id)
     // const homeWorkspace = workspaces.find(w => w.is_home)
-
     // There will always be a home workspace
     // setSelectedWorkspace(homeWorkspace!)
     // setWorkspaces(workspaces)
-
     // return router.push(`/${homeWorkspace?.id}/chat`)
   }
 

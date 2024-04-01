@@ -1,5 +1,5 @@
 import { ChatbotUIContext } from "@/context/context"
-import { Tables } from "@/supabase/types"
+// import { Tables } from "@/supabase/types"
 import { IconRobotFace } from "@tabler/icons-react"
 import Image from "next/image"
 import { FC, useContext, useEffect, useRef } from "react"
@@ -35,10 +35,10 @@ export const AssistantPicker: FC<AssistantPickerProps> = ({}) => {
     setIsAssistantPickerOpen(isOpen)
   }
 
-  const callSelectAssistant = (assistant: Tables<"assistants">) => {
-    handleSelectAssistant(assistant)
-    handleOpenChange(false)
-  }
+  // const callSelectAssistant = (assistant: Tables<"assistants">) => {
+  //   handleSelectAssistant(assistant)
+  //   handleOpenChange(false)
+  // }
 
   const getKeyDownHandler =
     (index: number) => (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -47,7 +47,7 @@ export const AssistantPicker: FC<AssistantPickerProps> = ({}) => {
         handleOpenChange(false)
       } else if (e.key === "Enter") {
         e.preventDefault()
-        callSelectAssistant(filteredAssistants[index])
+        // callSelectAssistant(filteredAssistants[index])
       } else if (
         (e.key === "Tab" || e.key === "ArrowDown") &&
         !e.shiftKey &&
@@ -89,8 +89,9 @@ export const AssistantPicker: FC<AssistantPickerProps> = ({}) => {
                   }}
                   tabIndex={0}
                   className="hover:bg-accent focus:bg-accent flex cursor-pointer items-center rounded p-2 focus:outline-none"
-                  onClick={() =>
-                    callSelectAssistant(item as Tables<"assistants">)
+                  onClick={
+                    () => {}
+                    // callSelectAssistant(item as Tables<"assistants">)
                   }
                   onKeyDown={getKeyDownHandler(index)}
                 >
