@@ -1,5 +1,5 @@
 import { ChatbotUIContext } from "@/context/context"
-import { createChat } from "@/db/chats"
+// import { createChat } from "@/db/chats"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
 import { ContentType, DataItemType } from "@/types"
@@ -42,25 +42,25 @@ export const SidebarItem: FC<SidebarItemProps> = ({
     assistants: async (assistant: Tables<"assistants">) => {
       if (!selectedWorkspace) return
 
-      const createdChat = await createChat({
-        user_id: assistant.user_id,
-        workspace_id: selectedWorkspace.id,
-        assistant_id: assistant.id,
-        context_length: assistant.context_length,
-        include_profile_context: assistant.include_profile_context,
-        include_workspace_instructions:
-          assistant.include_workspace_instructions,
-        model: assistant.model,
-        name: `Chat with ${assistant.name}`,
-        prompt: assistant.prompt,
-        temperature: assistant.temperature,
-        embeddings_provider: assistant.embeddings_provider
-      })
+      // const createdChat = await createChat({
+      //   user_id: assistant.user_id,
+      //   workspace_id: selectedWorkspace.id,
+      //   assistant_id: assistant.id,
+      //   context_length: assistant.context_length,
+      //   include_profile_context: assistant.include_profile_context,
+      //   include_workspace_instructions:
+      //     assistant.include_workspace_instructions,
+      //   model: assistant.model,
+      //   name: `Chat with ${assistant.name}`,
+      //   prompt: assistant.prompt,
+      //   temperature: assistant.temperature,
+      //   embeddings_provider: assistant.embeddings_provider
+      // })
 
-      setChats(prevState => [createdChat, ...prevState])
+      // setChats(prevState => [createdChat, ...prevState])
       setSelectedAssistant(assistant)
 
-      return router.push(`/${selectedWorkspace.id}/chat/${createdChat.id}`)
+      // return router.push(`/${selectedWorkspace.id}/chat/${createdChat.id}`)
     },
     tools: async (item: any) => {},
     models: async (item: any) => {}

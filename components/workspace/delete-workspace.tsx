@@ -10,7 +10,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog"
 import { ChatbotUIContext } from "@/context/context"
-import { deleteWorkspace } from "@/db/workspaces"
+// import { deleteWorkspace } from "@/db/workspaces"
 import { Tables } from "@/supabase/types"
 import { FC, useContext, useRef, useState } from "react"
 import { Input } from "../ui/input"
@@ -36,7 +36,7 @@ export const DeleteWorkspace: FC<DeleteWorkspaceProps> = ({
   const [name, setName] = useState("")
 
   const handleDeleteWorkspace = async () => {
-    await deleteWorkspace(workspace.id)
+    // await deleteWorkspace(workspace.id)
 
     setWorkspaces(prevWorkspaces => {
       const filteredWorkspaces = prevWorkspaces.filter(

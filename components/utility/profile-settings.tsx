@@ -1,12 +1,12 @@
 import { ChatbotUIContext } from "@/context/context"
-import {
-  PROFILE_CONTEXT_MAX,
-  PROFILE_DISPLAY_NAME_MAX,
-  PROFILE_USERNAME_MAX,
-  PROFILE_USERNAME_MIN
-} from "@/db/limits"
-import { updateProfile } from "@/db/profile"
-import { uploadProfileImage } from "@/db/storage/profile-images"
+// import {
+//   PROFILE_CONTEXT_MAX,
+//   PROFILE_DISPLAY_NAME_MAX,
+//   PROFILE_USERNAME_MAX,
+//   PROFILE_USERNAME_MIN
+// } from "@/db/limits"
+// import { updateProfile } from "@/db/profile"
+// import { uploadProfileImage } from "@/db/storage/profile-images"
 import { exportLocalStorageAsJSON } from "@/lib/export-old-data"
 import { fetchOpenRouterModels } from "@/lib/models/fetch-models"
 import { LLM_LIST_MAP } from "@/lib/models/llm/llm-list"
@@ -126,103 +126,103 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
   }
 
   const handleSave = async () => {
-    if (!profile) return
-    let profileImageUrl = profile.image_url
-    let profileImagePath = ""
+    // if (!profile) return
+    // let profileImageUrl = profile.image_url
+    // let profileImagePath = ""
 
-    if (profileImageFile) {
-      const { path, url } = await uploadProfileImage(profile, profileImageFile)
-      profileImageUrl = url ?? profileImageUrl
-      profileImagePath = path
-    }
+    // if (profileImageFile) {
+    //   const { path, url } = await uploadProfileImage(profile, profileImageFile)
+    //   profileImageUrl = url ?? profileImageUrl
+    //   profileImagePath = path
+    // }
 
-    const updatedProfile = await updateProfile(profile.id, {
-      ...profile,
-      display_name: displayName,
-      username,
-      profile_context: profileInstructions,
-      image_url: profileImageUrl,
-      image_path: profileImagePath,
-      openai_api_key: openaiAPIKey,
-      openai_organization_id: openaiOrgID,
-      anthropic_api_key: anthropicAPIKey,
-      google_gemini_api_key: googleGeminiAPIKey,
-      mistral_api_key: mistralAPIKey,
-      groq_api_key: groqAPIKey,
-      perplexity_api_key: perplexityAPIKey,
-      use_azure_openai: useAzureOpenai,
-      azure_openai_api_key: azureOpenaiAPIKey,
-      azure_openai_endpoint: azureOpenaiEndpoint,
-      azure_openai_35_turbo_id: azureOpenai35TurboID,
-      azure_openai_45_turbo_id: azureOpenai45TurboID,
-      azure_openai_45_vision_id: azureOpenai45VisionID,
-      azure_openai_embeddings_id: azureEmbeddingsID,
-      openrouter_api_key: openrouterAPIKey
-    })
+    // const updatedProfile = await updateProfile(profile.id, {
+    //   ...profile,
+    //   display_name: displayName,
+    //   username,
+    //   profile_context: profileInstructions,
+    //   image_url: profileImageUrl,
+    //   image_path: profileImagePath,
+    //   openai_api_key: openaiAPIKey,
+    //   openai_organization_id: openaiOrgID,
+    //   anthropic_api_key: anthropicAPIKey,
+    //   google_gemini_api_key: googleGeminiAPIKey,
+    //   mistral_api_key: mistralAPIKey,
+    //   groq_api_key: groqAPIKey,
+    //   perplexity_api_key: perplexityAPIKey,
+    //   use_azure_openai: useAzureOpenai,
+    //   azure_openai_api_key: azureOpenaiAPIKey,
+    //   azure_openai_endpoint: azureOpenaiEndpoint,
+    //   azure_openai_35_turbo_id: azureOpenai35TurboID,
+    //   azure_openai_45_turbo_id: azureOpenai45TurboID,
+    //   azure_openai_45_vision_id: azureOpenai45VisionID,
+    //   azure_openai_embeddings_id: azureEmbeddingsID,
+    //   openrouter_api_key: openrouterAPIKey
+    // })
 
-    setProfile(updatedProfile)
+    // setProfile(updatedProfile)
 
-    toast.success("Profile updated!")
+    // toast.success("Profile updated!")
 
-    const providers = [
-      "openai",
-      "google",
-      "azure",
-      "anthropic",
-      "mistral",
-      "groq",
-      "perplexity",
-      "openrouter"
-    ]
+    // const providers = [
+    //   "openai",
+    //   "google",
+    //   "azure",
+    //   "anthropic",
+    //   "mistral",
+    //   "groq",
+    //   "perplexity",
+    //   "openrouter"
+    // ]
 
-    providers.forEach(async provider => {
-      let providerKey: keyof typeof profile
+    // providers.forEach(async provider => {
+    //   let providerKey: keyof typeof profile
 
-      if (provider === "google") {
-        providerKey = "google_gemini_api_key"
-      } else if (provider === "azure") {
-        providerKey = "azure_openai_api_key"
-      } else {
-        providerKey = `${provider}_api_key` as keyof typeof profile
-      }
+    //   if (provider === "google") {
+    //     providerKey = "google_gemini_api_key"
+    //   } else if (provider === "azure") {
+    //     providerKey = "azure_openai_api_key"
+    //   } else {
+    //     providerKey = `${provider}_api_key` as keyof typeof profile
+    //   }
 
-      const models = LLM_LIST_MAP[provider]
-      const envKeyActive = envKeyMap[provider]
+    //   const models = LLM_LIST_MAP[provider]
+    //   const envKeyActive = envKeyMap[provider]
 
-      if (!envKeyActive) {
-        const hasApiKey = !!updatedProfile[providerKey]
+    //   if (!envKeyActive) {
+    //     const hasApiKey = !!updatedProfile[providerKey]
 
-        if (provider === "openrouter") {
-          if (hasApiKey && availableOpenRouterModels.length === 0) {
-            const openrouterModels: OpenRouterLLM[] =
-              await fetchOpenRouterModels()
-            setAvailableOpenRouterModels(prev => {
-              const newModels = openrouterModels.filter(
-                model =>
-                  !prev.some(prevModel => prevModel.modelId === model.modelId)
-              )
-              return [...prev, ...newModels]
-            })
-          } else {
-            setAvailableOpenRouterModels([])
-          }
-        } else {
-          if (hasApiKey && Array.isArray(models)) {
-            setAvailableHostedModels(prev => {
-              const newModels = models.filter(
-                model =>
-                  !prev.some(prevModel => prevModel.modelId === model.modelId)
-              )
-              return [...prev, ...newModels]
-            })
-          } else if (!hasApiKey && Array.isArray(models)) {
-            setAvailableHostedModels(prev =>
-              prev.filter(model => !models.includes(model))
-            )
-          }
-        }
-      }
-    })
+    //     if (provider === "openrouter") {
+    //       if (hasApiKey && availableOpenRouterModels.length === 0) {
+    //         const openrouterModels: OpenRouterLLM[] =
+    //           await fetchOpenRouterModels()
+    //         setAvailableOpenRouterModels(prev => {
+    //           const newModels = openrouterModels.filter(
+    //             model =>
+    //               !prev.some(prevModel => prevModel.modelId === model.modelId)
+    //           )
+    //           return [...prev, ...newModels]
+    //         })
+    //       } else {
+    //         setAvailableOpenRouterModels([])
+    //       }
+    //     } else {
+    //       if (hasApiKey && Array.isArray(models)) {
+    //         setAvailableHostedModels(prev => {
+    //           const newModels = models.filter(
+    //             model =>
+    //               !prev.some(prevModel => prevModel.modelId === model.modelId)
+    //           )
+    //           return [...prev, ...newModels]
+    //         })
+    //       } else if (!hasApiKey && Array.isArray(models)) {
+    //         setAvailableHostedModels(prev =>
+    //           prev.filter(model => !models.includes(model))
+    //         )
+    //       }
+    //     }
+    //   }
+    // })
 
     setIsOpen(false)
   }
@@ -245,15 +245,15 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
     debounce(async (username: string) => {
       if (!username) return
 
-      if (username.length < PROFILE_USERNAME_MIN) {
-        setUsernameAvailable(false)
-        return
-      }
+      // if (username.length < PROFILE_USERNAME_MIN) {
+      //   setUsernameAvailable(false)
+      //   return
+      // }
 
-      if (username.length > PROFILE_USERNAME_MAX) {
-        setUsernameAvailable(false)
-        return
-      }
+      // if (username.length > PROFILE_USERNAME_MAX) {
+      //   setUsernameAvailable(false)
+      //   return
+      // }
 
       const usernameRegex = /^[a-zA-Z0-9_]+$/
       if (!usernameRegex.test(username)) {
@@ -364,8 +364,8 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                       setUsername(e.target.value)
                       checkUsernameAvailability(e.target.value)
                     }}
-                    minLength={PROFILE_USERNAME_MIN}
-                    maxLength={PROFILE_USERNAME_MAX}
+                    // minLength={PROFILE_USERNAME_MIN}
+                    // maxLength={PROFILE_USERNAME_MAX}
                   />
 
                   {username !== profile.username ? (
@@ -381,10 +381,10 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                   ) : null}
                 </div>
 
-                <LimitDisplay
+                {/* <LimitDisplay
                   used={username.length}
-                  limit={PROFILE_USERNAME_MAX}
-                />
+                  // limit={PROFILE_USERNAME_MAX}
+                /> */}
               </div>
 
               <div className="space-y-1">
@@ -407,7 +407,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                   placeholder="Chat display name..."
                   value={displayName}
                   onChange={e => setDisplayName(e.target.value)}
-                  maxLength={PROFILE_DISPLAY_NAME_MAX}
+                  // maxLength={PROFILE_DISPLAY_NAME_MAX}
                 />
               </div>
 
@@ -425,10 +425,10 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                   maxRows={10}
                 />
 
-                <LimitDisplay
+                {/* <LimitDisplay
                   used={profileInstructions.length}
-                  limit={PROFILE_CONTEXT_MAX}
-                />
+                  // limit={PROFILE_CONTEXT_MAX}
+                /> */}
               </div>
             </TabsContent>
 

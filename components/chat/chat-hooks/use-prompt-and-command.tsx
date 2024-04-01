@@ -1,8 +1,8 @@
 import { ChatbotUIContext } from "@/context/context"
-import { getAssistantCollectionsByAssistantId } from "@/db/assistant-collections"
-import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
-import { getAssistantToolsByAssistantId } from "@/db/assistant-tools"
-import { getCollectionFilesByCollectionId } from "@/db/collection-files"
+// import { getAssistantCollectionsByAssistantId } from "@/db/assistant-collections"
+// import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
+// import { getAssistantToolsByAssistantId } from "@/db/assistant-tools"
+// import { getCollectionFilesByCollectionId } from "@/db/collection-files"
 import { Tables } from "@/supabase/types"
 import { LLMID } from "@/types"
 import { useContext } from "react"
@@ -104,26 +104,26 @@ export const usePromptAndCommand = () => {
     setIsFilePickerOpen(false)
     setUseRetrieval(true)
 
-    const collectionFiles = await getCollectionFilesByCollectionId(
-      collection.id
-    )
+    // const collectionFiles = await getCollectionFilesByCollectionId(
+    //   collection.id
+    // )
 
-    setNewMessageFiles(prev => {
-      const newFiles = collectionFiles.files
-        .filter(
-          file =>
-            !prev.some(prevFile => prevFile.id === file.id) &&
-            !chatFiles.some(chatFile => chatFile.id === file.id)
-        )
-        .map(file => ({
-          id: file.id,
-          name: file.name,
-          type: file.type,
-          file: null
-        }))
+    // setNewMessageFiles(prev => {
+    //   const newFiles = collectionFiles.files
+    //     .filter(
+    //       file =>
+    //         !prev.some(prevFile => prevFile.id === file.id) &&
+    //         !chatFiles.some(chatFile => chatFile.id === file.id)
+    //     )
+    //     .map(file => ({
+    //       id: file.id,
+    //       name: file.name,
+    //       type: file.type,
+    //       file: null
+    //     }))
 
-      return [...prev, ...newFiles]
-    })
+    //   return [...prev, ...newFiles]
+    // })
 
     setUserInput(userInput.replace(/#[^ ]*$/, ""))
   }
@@ -151,32 +151,32 @@ export const usePromptAndCommand = () => {
 
     let allFiles = []
 
-    const assistantFiles = (await getAssistantFilesByAssistantId(assistant.id))
-      .files
-    allFiles = [...assistantFiles]
-    const assistantCollections = (
-      await getAssistantCollectionsByAssistantId(assistant.id)
-    ).collections
-    for (const collection of assistantCollections) {
-      const collectionFiles = (
-        await getCollectionFilesByCollectionId(collection.id)
-      ).files
-      allFiles = [...allFiles, ...collectionFiles]
-    }
-    const assistantTools = (await getAssistantToolsByAssistantId(assistant.id))
-      .tools
+    // const assistantFiles = (await getAssistantFilesByAssistantId(assistant.id))
+    //   .files
+    // allFiles = [...assistantFiles]
+    // const assistantCollections = (
+    //   await getAssistantCollectionsByAssistantId(assistant.id)
+    // ).collections
+    // for (const collection of assistantCollections) {
+    //   const collectionFiles = (
+    //     await getCollectionFilesByCollectionId(collection.id)
+    //   ).files
+    //   allFiles = [...allFiles, ...collectionFiles]
+    // }
+    // const assistantTools = (await getAssistantToolsByAssistantId(assistant.id))
+    //   .tools
 
-    setSelectedTools(assistantTools)
-    setChatFiles(
-      allFiles.map(file => ({
-        id: file.id,
-        name: file.name,
-        type: file.type,
-        file: null
-      }))
-    )
+    // setSelectedTools(assistantTools)
+    // setChatFiles(
+    //   allFiles.map(file => ({
+    //     id: file.id,
+    //     name: file.name,
+    //     type: file.type,
+    //     file: null
+    //   }))
+    // )
 
-    if (allFiles.length > 0) setShowFilesDisplay(true)
+    // if (allFiles.length > 0) setShowFilesDisplay(true)
   }
 
   return {

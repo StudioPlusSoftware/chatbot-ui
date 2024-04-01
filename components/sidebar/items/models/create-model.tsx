@@ -2,7 +2,7 @@ import { SidebarCreateItem } from "@/components/sidebar/items/all/sidebar-create
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ChatbotUIContext } from "@/context/context"
-import { MODEL_NAME_MAX } from "@/db/limits"
+// import { MODEL_NAME_MAX } from "@/db/limits"
 import { TablesInsert } from "@/supabase/types"
 import { FC, useContext, useState } from "react"
 
@@ -60,7 +60,7 @@ export const CreateModel: FC<CreateModelProps> = ({ isOpen, onOpenChange }) => {
               placeholder="Model name..."
               value={name}
               onChange={e => setName(e.target.value)}
-              maxLength={MODEL_NAME_MAX}
+              // maxLength={MODEL_NAME_MAX}
             />
           </div>
 

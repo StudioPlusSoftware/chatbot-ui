@@ -3,9 +3,9 @@
 "use client"
 
 import { ChatbotUIContext } from "@/context/context"
-import { getProfileByUserId } from "@/db/profile"
-import { getWorkspaceImageFromStorage } from "@/db/storage/workspace-images"
-import { getWorkspacesByUserId } from "@/db/workspaces"
+// import { getProfileByUserId } from "@/db/profile"
+// import { getWorkspaceImageFromStorage } from "@/db/storage/workspace-images"
+// import { getWorkspacesByUserId } from "@/db/workspaces"
 import { convertBlobToBase64 } from "@/lib/blob-to-b64"
 import {
   fetchHostedModels,
@@ -158,40 +158,40 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
     if (session) {
       const user = session.user
 
-      const profile = await getProfileByUserId(user.id)
-      setProfile(profile)
+      // const profile = await getProfileByUserId(user.id)
+      // setProfile(profile)
 
-      if (!profile.has_onboarded) {
-        return router.push("/setup")
-      }
+      // if (!profile.has_onboarded) {
+      //   return router.push("/setup")
+      // }
 
-      const workspaces = await getWorkspacesByUserId(user.id)
-      setWorkspaces(workspaces)
+      // const workspaces = await getWorkspacesByUserId(user.id)
+      // setWorkspaces(workspaces)
 
-      for (const workspace of workspaces) {
-        let workspaceImageUrl = ""
+      // for (const workspace of workspaces) {
+      //   let workspaceImageUrl = ""
 
-        if (workspace.image_path) {
-          workspaceImageUrl =
-            (await getWorkspaceImageFromStorage(workspace.image_path)) || ""
-        }
+      //   if (workspace.image_path) {
+      //     workspaceImageUrl =
+      //       (await getWorkspaceImageFromStorage(workspace.image_path)) || ""
+      //   }
 
-        if (workspaceImageUrl) {
-          const response = await fetch(workspaceImageUrl)
-          const blob = await response.blob()
-          const base64 = await convertBlobToBase64(blob)
+      //   if (workspaceImageUrl) {
+      //     const response = await fetch(workspaceImageUrl)
+      //     const blob = await response.blob()
+      //     const base64 = await convertBlobToBase64(blob)
 
-          setWorkspaceImages(prev => [
-            ...prev,
-            {
-              workspaceId: workspace.id,
-              path: workspace.image_path,
-              base64: base64,
-              url: workspaceImageUrl
-            }
-          ])
-        }
-      }
+      //     setWorkspaceImages(prev => [
+      //       ...prev,
+      //       {
+      //         workspaceId: workspace.id,
+      //         path: workspace.image_path,
+      //         base64: base64,
+      //         url: workspaceImageUrl
+      //       }
+      //     ])
+      //   }
+      // }
 
       return profile
     }

@@ -1,8 +1,8 @@
 import { ChatbotUIContext } from "@/context/context"
-import { getAssistantCollectionsByAssistantId } from "@/db/assistant-collections"
-import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
-import { getAssistantToolsByAssistantId } from "@/db/assistant-tools"
-import { getCollectionFilesByCollectionId } from "@/db/collection-files"
+// import { getAssistantCollectionsByAssistantId } from "@/db/assistant-collections"
+// import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
+// import { getAssistantToolsByAssistantId } from "@/db/assistant-tools"
+// import { getCollectionFilesByCollectionId } from "@/db/collection-files"
 import useHotkey from "@/lib/hooks/use-hotkey"
 import { LLM_LIST } from "@/lib/models/llm/llm-list"
 import { Tables } from "@/supabase/types"
@@ -64,72 +64,72 @@ export const QuickSettings: FC<QuickSettingsProps> = ({}) => {
     contentType: "presets" | "assistants" | "remove"
   ) => {
     console.log({ item, contentType })
-    if (contentType === "assistants" && item) {
-      setSelectedAssistant(item as Tables<"assistants">)
-      setLoading(true)
-      let allFiles = []
-      const assistantFiles = (await getAssistantFilesByAssistantId(item.id))
-        .files
-      allFiles = [...assistantFiles]
-      const assistantCollections = (
-        await getAssistantCollectionsByAssistantId(item.id)
-      ).collections
-      for (const collection of assistantCollections) {
-        const collectionFiles = (
-          await getCollectionFilesByCollectionId(collection.id)
-        ).files
-        allFiles = [...allFiles, ...collectionFiles]
-      }
-      const assistantTools = (await getAssistantToolsByAssistantId(item.id))
-        .tools
-      setSelectedTools(assistantTools)
-      setChatFiles(
-        allFiles.map(file => ({
-          id: file.id,
-          name: file.name,
-          type: file.type,
-          file: null
-        }))
-      )
-      if (allFiles.length > 0) setShowFilesDisplay(true)
-      setLoading(false)
-      setSelectedPreset(null)
-    } else if (contentType === "presets" && item) {
-      setSelectedPreset(item as Tables<"presets">)
-      setSelectedAssistant(null)
-      setChatFiles([])
-      setSelectedTools([])
-    } else {
-      setSelectedPreset(null)
-      setSelectedAssistant(null)
-      setChatFiles([])
-      setSelectedTools([])
-      if (selectedWorkspace) {
-        setChatSettings({
-          model: selectedWorkspace.default_model as LLMID,
-          prompt: selectedWorkspace.default_prompt,
-          temperature: selectedWorkspace.default_temperature,
-          contextLength: selectedWorkspace.default_context_length,
-          includeProfileContext: selectedWorkspace.include_profile_context,
-          includeWorkspaceInstructions:
-            selectedWorkspace.include_workspace_instructions,
-          embeddingsProvider: selectedWorkspace.embeddings_provider as
-            | "openai"
-            | "local"
-        })
-      }
-      return
-    }
+    // if (contentType === "assistants" && item) {
+    //   setSelectedAssistant(item as Tables<"assistants">)
+    //   setLoading(true)
+    //   let allFiles = []
+    //   const assistantFiles = (await getAssistantFilesByAssistantId(item.id))
+    //     .files
+    //   allFiles = [...assistantFiles]
+    //   const assistantCollections = (
+    //     await getAssistantCollectionsByAssistantId(item.id)
+    //   ).collections
+    //   for (const collection of assistantCollections) {
+    //     const collectionFiles = (
+    //       await getCollectionFilesByCollectionId(collection.id)
+    //     ).files
+    //     allFiles = [...allFiles, ...collectionFiles]
+    //   }
+    //   const assistantTools = (await getAssistantToolsByAssistantId(item.id))
+    //     .tools
+    //   setSelectedTools(assistantTools)
+    //   setChatFiles(
+    //     allFiles.map(file => ({
+    //       id: file.id,
+    //       name: file.name,
+    //       type: file.type,
+    //       file: null
+    //     }))
+    //   )
+    //   if (allFiles.length > 0) setShowFilesDisplay(true)
+    //   setLoading(false)
+    //   setSelectedPreset(null)
+    // } else if (contentType === "presets" && item) {
+    //   setSelectedPreset(item as Tables<"presets">)
+    //   setSelectedAssistant(null)
+    //   setChatFiles([])
+    //   setSelectedTools([])
+    // } else {
+    //   setSelectedPreset(null)
+    //   setSelectedAssistant(null)
+    //   setChatFiles([])
+    //   setSelectedTools([])
+    //   if (selectedWorkspace) {
+    //     setChatSettings({
+    //       model: selectedWorkspace.default_model as LLMID,
+    //       prompt: selectedWorkspace.default_prompt,
+    //       temperature: selectedWorkspace.default_temperature,
+    //       contextLength: selectedWorkspace.default_context_length,
+    //       includeProfileContext: selectedWorkspace.include_profile_context,
+    //       includeWorkspaceInstructions:
+    //         selectedWorkspace.include_workspace_instructions,
+    //       embeddingsProvider: selectedWorkspace.embeddings_provider as
+    //         | "openai"
+    //         | "local"
+    //     })
+    //   }
+    //   return
+    // }
 
-    setChatSettings({
-      model: item.model as LLMID,
-      prompt: item.prompt,
-      temperature: item.temperature,
-      contextLength: item.context_length,
-      includeProfileContext: item.include_profile_context,
-      includeWorkspaceInstructions: item.include_workspace_instructions,
-      embeddingsProvider: item.embeddings_provider as "openai" | "local"
-    })
+    // setChatSettings({
+    //   model: item.model as LLMID,
+    //   prompt: item.prompt,
+    //   temperature: item.temperature,
+    //   contextLength: item.context_length,
+    //   includeProfileContext: item.include_profile_context,
+    //   includeWorkspaceInstructions: item.include_workspace_instructions,
+    //   embeddingsProvider: item.embeddings_provider as "openai" | "local"
+    // })
   }
 
   const checkIfModified = () => {

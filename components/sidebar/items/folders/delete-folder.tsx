@@ -9,7 +9,7 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog"
 import { ChatbotUIContext } from "@/context/context"
-import { deleteFolder } from "@/db/folders"
+// import { deleteFolder } from "@/db/folders"
 import { supabase } from "@/lib/supabase/browser-client"
 import { Tables } from "@/supabase/types"
 import { ContentType } from "@/types"
@@ -54,7 +54,7 @@ export const DeleteFolder: FC<DeleteFolderProps> = ({
   }
 
   const handleDeleteFolderOnly = async () => {
-    await deleteFolder(folder.id)
+    // await deleteFolder(folder.id)
 
     setFolders(prevState => prevState.filter(c => c.id !== folder.id))
 

@@ -1,6 +1,6 @@
 import { useChatHandler } from "@/components/chat/chat-hooks/use-chat-handler"
 import { ChatbotUIContext } from "@/context/context"
-import { createFolder } from "@/db/folders"
+// import { createFolder } from "@/db/folders"
 import { ContentType } from "@/types"
 import { IconFolderPlus, IconPlus } from "@tabler/icons-react"
 import { FC, useContext, useState } from "react"
@@ -38,14 +38,14 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
     if (!profile) return
     if (!selectedWorkspace) return
 
-    const createdFolder = await createFolder({
-      user_id: profile.user_id,
-      workspace_id: selectedWorkspace.id,
-      name: "New Folder",
-      description: "",
-      type: contentType
-    })
-    setFolders([...folders, createdFolder])
+    // const createdFolder = await createFolder({
+    //   user_id: profile.user_id,
+    //   workspace_id: selectedWorkspace.id,
+    //   name: "New Folder",
+    //   description: "",
+    //   type: contentType
+    // })
+    // setFolders([...folders, createdFolder])
   }
 
   const getCreateFunction = () => {

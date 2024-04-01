@@ -1,11 +1,11 @@
 import { ChatbotUIContext } from "@/context/context"
-import { createAssistants } from "@/db/assistants"
-import { createChats } from "@/db/chats"
-import { createCollections } from "@/db/collections"
-import { createFiles } from "@/db/files"
-import { createPresets } from "@/db/presets"
-import { createPrompts } from "@/db/prompts"
-import { createTools } from "@/db/tools"
+// import { createAssistants } from "@/db/assistants"
+// import { createChats } from "@/db/chats"
+// import { createCollections } from "@/db/collections"
+// import { createFiles } from "@/db/files"
+// import { createPresets } from "@/db/presets"
+// import { createPrompts } from "@/db/prompts"
+// import { createTools } from "@/db/tools"
 import { IconUpload, IconX } from "@tabler/icons-react"
 import { FC, useContext, useRef, useState } from "react"
 import { toast } from "sonner"
@@ -164,29 +164,29 @@ export const Import: FC<ImportProps> = ({}) => {
       saveData[contentType].push(itemWithoutContentType)
     })
 
-    const createdItems = {
-      chats: await createChats(saveData.chats),
-      presets: await createPresets(saveData.presets, selectedWorkspace.id),
-      prompts: await createPrompts(saveData.prompts, selectedWorkspace.id),
-      files: await createFiles(saveData.files, selectedWorkspace.id),
-      collections: await createCollections(
-        saveData.collections,
-        selectedWorkspace.id
-      ),
-      assistants: await createAssistants(
-        saveData.assistants,
-        selectedWorkspace.id
-      ),
-      tools: await createTools(saveData.tools, selectedWorkspace.id)
-    }
+    // const createdItems = {
+    //   chats: await createChats(saveData.chats),
+    //   presets: await createPresets(saveData.presets, selectedWorkspace.id),
+    //   prompts: await createPrompts(saveData.prompts, selectedWorkspace.id),
+    //   files: await createFiles(saveData.files, selectedWorkspace.id),
+    //   collections: await createCollections(
+    //     saveData.collections,
+    //     selectedWorkspace.id
+    //   ),
+    //   assistants: await createAssistants(
+    //     saveData.assistants,
+    //     selectedWorkspace.id
+    //   ),
+    //   tools: await createTools(saveData.tools, selectedWorkspace.id)
+    // }
 
-    Object.keys(createdItems).forEach(key => {
-      const typedKey = key as keyof typeof stateUpdateFunctions
-      stateUpdateFunctions[typedKey]((prevItems: any) => [
-        ...prevItems,
-        ...createdItems[typedKey]
-      ])
-    })
+    // Object.keys(createdItems).forEach(key => {
+    //   const typedKey = key as keyof typeof stateUpdateFunctions
+    //   stateUpdateFunctions[typedKey]((prevItems: any) => [
+    //     ...prevItems,
+    //     ...createdItems[typedKey]
+    //   ])
+    // })
 
     toast.success("Data imported successfully!")
 

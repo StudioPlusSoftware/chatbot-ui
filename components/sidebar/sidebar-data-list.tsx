@@ -1,12 +1,12 @@
 import { ChatbotUIContext } from "@/context/context"
-import { updateAssistant } from "@/db/assistants"
-import { updateChat } from "@/db/chats"
-import { updateCollection } from "@/db/collections"
-import { updateFile } from "@/db/files"
-import { updateModel } from "@/db/models"
-import { updatePreset } from "@/db/presets"
-import { updatePrompt } from "@/db/prompts"
-import { updateTool } from "@/db/tools"
+// import { updateAssistant } from "@/db/assistants"
+// import { updateChat } from "@/db/chats"
+// import { updateCollection } from "@/db/collections"
+// import { updateFile } from "@/db/files"
+// import { updateModel } from "@/db/models"
+// import { updatePreset } from "@/db/presets"
+// import { updatePrompt } from "@/db/prompts"
+// import { updateTool } from "@/db/tools"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
 import { ContentType, DataItemType, DataListType } from "@/types"
@@ -132,16 +132,16 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
       )
   }
 
-  const updateFunctions = {
-    chats: updateChat,
-    presets: updatePreset,
-    prompts: updatePrompt,
-    files: updateFile,
-    collections: updateCollection,
-    assistants: updateAssistant,
-    tools: updateTool,
-    models: updateModel
-  }
+  // const updateFunctions = {
+  //   chats: updateChat,
+  //   presets: updatePreset,
+  //   prompts: updatePrompt,
+  //   files: updateFile,
+  //   collections: updateCollection,
+  //   assistants: updateAssistant,
+  //   tools: updateTool,
+  //   models: updateModel
+  // }
 
   const stateUpdateFunctions = {
     chats: setChats,
@@ -159,20 +159,20 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
     if (!item) return null
 
-    const updateFunction = updateFunctions[contentType]
+    // const updateFunction = updateFunctions[contentType]
     const setStateFunction = stateUpdateFunctions[contentType]
 
-    if (!updateFunction || !setStateFunction) return
+    // if (!updateFunction || !setStateFunction) return
 
-    const updatedItem = await updateFunction(item.id, {
-      folder_id: folderId
-    })
+    // const updatedItem = await updateFunction(item.id, {
+    //   folder_id: folderId
+    // })
 
-    setStateFunction((items: any) =>
-      items.map((item: any) =>
-        item.id === updatedItem.id ? updatedItem : item
-      )
-    )
+    // setStateFunction((items: any) =>
+    //   items.map((item: any) =>
+    //     item.id === updatedItem.id ? updatedItem : item
+    //   )
+    // )
   }
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {

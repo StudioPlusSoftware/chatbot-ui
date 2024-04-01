@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { TextareaAutosize } from "@/components/ui/textarea-autosize"
-import { TOOL_DESCRIPTION_MAX, TOOL_NAME_MAX } from "@/db/limits"
+// import { TOOL_DESCRIPTION_MAX, TOOL_NAME_MAX } from "@/db/limits"
 import { validateOpenAPI } from "@/lib/openapi-conversion"
 import { Tables } from "@/supabase/types"
 import { IconBolt } from "@tabler/icons-react"
@@ -45,7 +45,7 @@ export const ToolItem: FC<ToolItemProps> = ({ tool }) => {
               placeholder="Tool name..."
               value={name}
               onChange={e => setName(e.target.value)}
-              maxLength={TOOL_NAME_MAX}
+              // maxLength={TOOL_NAME_MAX}
             />
           </div>
 
@@ -56,7 +56,7 @@ export const ToolItem: FC<ToolItemProps> = ({ tool }) => {
               placeholder="Tool description..."
               value={description}
               onChange={e => setDescription(e.target.value)}
-              maxLength={TOOL_DESCRIPTION_MAX}
+              // maxLength={TOOL_DESCRIPTION_MAX}
             />
           </div>
 

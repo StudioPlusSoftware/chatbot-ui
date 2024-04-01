@@ -3,7 +3,7 @@ import ImagePicker from "@/components/ui/image-picker"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ChatbotUIContext } from "@/context/context"
-import { ASSISTANT_DESCRIPTION_MAX, ASSISTANT_NAME_MAX } from "@/db/limits"
+
 import { Tables } from "@/supabase/types"
 import { IconRobotFace } from "@tabler/icons-react"
 import Image from "next/image"
@@ -173,7 +173,7 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
               placeholder="Assistant name..."
               value={name}
               onChange={e => setName(e.target.value)}
-              maxLength={ASSISTANT_NAME_MAX}
+              // maxLength={ASSISTANT_NAME_MAX}
             />
           </div>
 
@@ -184,7 +184,7 @@ export const AssistantItem: FC<AssistantItemProps> = ({ assistant }) => {
               placeholder="Assistant description..."
               value={description}
               onChange={e => setDescription(e.target.value)}
-              maxLength={ASSISTANT_DESCRIPTION_MAX}
+              // maxLength={ASSISTANT_DESCRIPTION_MAX}
             />
           </div>
 

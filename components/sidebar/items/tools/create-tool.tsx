@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { TextareaAutosize } from "@/components/ui/textarea-autosize"
 import { ChatbotUIContext } from "@/context/context"
-import { TOOL_DESCRIPTION_MAX, TOOL_NAME_MAX } from "@/db/limits"
+// import { TOOL_DESCRIPTION_MAX, TOOL_NAME_MAX } from "@/db/limits"
 import { validateOpenAPI } from "@/lib/openapi-conversion"
 import { TablesInsert } from "@/supabase/types"
 import { FC, useContext, useState } from "react"
@@ -50,7 +50,7 @@ export const CreateTool: FC<CreateToolProps> = ({ isOpen, onOpenChange }) => {
               placeholder="Tool name..."
               value={name}
               onChange={e => setName(e.target.value)}
-              maxLength={TOOL_NAME_MAX}
+              // maxLength={TOOL_NAME_MAX}
             />
           </div>
 
@@ -61,7 +61,7 @@ export const CreateTool: FC<CreateToolProps> = ({ isOpen, onOpenChange }) => {
               placeholder="Tool description..."
               value={description}
               onChange={e => setDescription(e.target.value)}
-              maxLength={TOOL_DESCRIPTION_MAX}
+              // maxLength={TOOL_DESCRIPTION_MAX}
             />
           </div>
 

@@ -1,10 +1,10 @@
 // Only used in use-chat-handler.tsx to keep it clean
 
-import { createChatFiles } from "@/db/chat-files"
-import { createChat } from "@/db/chats"
-import { createMessageFileItems } from "@/db/message-file-items"
-import { createMessages, updateMessage } from "@/db/messages"
-import { uploadMessageImage } from "@/db/storage/message-images"
+// import { createChatFiles } from "@/db/chat-files"
+// import { createChat } from "@/db/chats"
+// import { createMessageFileItems } from "@/db/message-file-items"
+// import { createMessages, updateMessage } from "@/db/messages"
+// import { uploadMessageImage } from "@/db/storage/message-images"
 import {
   buildFinalMessages,
   buildGoogleGeminiFinalMessages
@@ -363,34 +363,34 @@ export const handleCreateChat = async (
   setChats: React.Dispatch<React.SetStateAction<Tables<"chats">[]>>,
   setChatFiles: React.Dispatch<React.SetStateAction<ChatFile[]>>
 ) => {
-  const createdChat = await createChat({
-    user_id: profile.user_id,
-    workspace_id: selectedWorkspace.id,
-    assistant_id: selectedAssistant?.id || null,
-    context_length: chatSettings.contextLength,
-    include_profile_context: chatSettings.includeProfileContext,
-    include_workspace_instructions: chatSettings.includeWorkspaceInstructions,
-    model: chatSettings.model,
-    name: messageContent.substring(0, 100),
-    prompt: chatSettings.prompt,
-    temperature: chatSettings.temperature,
-    embeddings_provider: chatSettings.embeddingsProvider
-  })
+  // const createdChat = await createChat({
+  //   user_id: profile.user_id,
+  //   workspace_id: selectedWorkspace.id,
+  //   assistant_id: selectedAssistant?.id || null,
+  //   context_length: chatSettings.contextLength,
+  //   include_profile_context: chatSettings.includeProfileContext,
+  //   include_workspace_instructions: chatSettings.includeWorkspaceInstructions,
+  //   model: chatSettings.model,
+  //   name: messageContent.substring(0, 100),
+  //   prompt: chatSettings.prompt,
+  //   temperature: chatSettings.temperature,
+  //   embeddings_provider: chatSettings.embeddingsProvider
+  // })
 
-  setSelectedChat(createdChat)
-  setChats(chats => [createdChat, ...chats])
+  // setSelectedChat(createdChat)
+  // setChats(chats => [createdChat, ...chats])
 
-  await createChatFiles(
-    newMessageFiles.map(file => ({
-      user_id: profile.user_id,
-      chat_id: createdChat.id,
-      file_id: file.id
-    }))
-  )
+  // await createChatFiles(
+  //   newMessageFiles.map(file => ({
+  //     user_id: profile.user_id,
+  //     chat_id: createdChat.id,
+  //     file_id: file.id
+  //   }))
+  // )
 
-  setChatFiles(prev => [...prev, ...newMessageFiles])
+  // setChatFiles(prev => [...prev, ...newMessageFiles])
 
-  return createdChat
+  // return createdChat
 }
 
 export const handleCreateMessages = async (
@@ -434,87 +434,87 @@ export const handleCreateMessages = async (
 
   let finalChatMessages: ChatMessage[] = []
 
-  if (isRegeneration) {
-    const lastStartingMessage = chatMessages[chatMessages.length - 1].message
+  // if (isRegeneration) {
+  //   const lastStartingMessage = chatMessages[chatMessages.length - 1].message
 
-    const updatedMessage = await updateMessage(lastStartingMessage.id, {
-      ...lastStartingMessage,
-      content: generatedText
-    })
+  //   const updatedMessage = await updateMessage(lastStartingMessage.id, {
+  //     ...lastStartingMessage,
+  //     content: generatedText
+  //   })
 
-    chatMessages[chatMessages.length - 1].message = updatedMessage
+  //   chatMessages[chatMessages.length - 1].message = updatedMessage
 
-    finalChatMessages = [...chatMessages]
+  //   finalChatMessages = [...chatMessages]
 
-    setChatMessages(finalChatMessages)
-  } else {
-    const createdMessages = await createMessages([
-      finalUserMessage,
-      finalAssistantMessage
-    ])
+  //   setChatMessages(finalChatMessages)
+  // } else {
+  //   const createdMessages = await createMessages([
+  //     finalUserMessage,
+  //     finalAssistantMessage
+  //   ])
 
-    // Upload each image (stored in newMessageImages) for the user message to message_images bucket
-    const uploadPromises = newMessageImages
-      .filter(obj => obj.file !== null)
-      .map(obj => {
-        let filePath = `${profile.user_id}/${currentChat.id}/${
-          createdMessages[0].id
-        }/${uuidv4()}`
+  //   // Upload each image (stored in newMessageImages) for the user message to message_images bucket
+  //   const uploadPromises = newMessageImages
+  //     .filter(obj => obj.file !== null)
+  //     .map(obj => {
+  //       let filePath = `${profile.user_id}/${currentChat.id}/${
+  //         createdMessages[0].id
+  //       }/${uuidv4()}`
 
-        return uploadMessageImage(filePath, obj.file as File).catch(error => {
-          console.error(`Failed to upload image at ${filePath}:`, error)
-          return null
-        })
-      })
+  //       return uploadMessageImage(filePath, obj.file as File).catch((error: any )=> {
+  //         console.error(`Failed to upload image at ${filePath}:`, error)
+  //         return null
+  //       })
+  //     })
 
-    const paths = (await Promise.all(uploadPromises)).filter(
-      Boolean
-    ) as string[]
+  //   const paths = (await Promise.all(uploadPromises)).filter(
+  //     Boolean
+  //   ) as string[]
 
-    setChatImages(prevImages => [
-      ...prevImages,
-      ...newMessageImages.map((obj, index) => ({
-        ...obj,
-        messageId: createdMessages[0].id,
-        path: paths[index]
-      }))
-    ])
+  //   setChatImages(prevImages => [
+  //     ...prevImages,
+  //     ...newMessageImages.map((obj, index) => ({
+  //       ...obj,
+  //       messageId: createdMessages[0].id,
+  //       path: paths[index]
+  //     }))
+  //   ])
 
-    const updatedMessage = await updateMessage(createdMessages[0].id, {
-      ...createdMessages[0],
-      image_paths: paths
-    })
+  //   const updatedMessage = await updateMessage(createdMessages[0].id, {
+  //     ...createdMessages[0],
+  //     image_paths: paths
+  //   })
 
-    const createdMessageFileItems = await createMessageFileItems(
-      retrievedFileItems.map(fileItem => {
-        return {
-          user_id: profile.user_id,
-          message_id: createdMessages[1].id,
-          file_item_id: fileItem.id
-        }
-      })
-    )
+  //   const createdMessageFileItems = await createMessageFileItems(
+  //     retrievedFileItems.map(fileItem => {
+  //       return {
+  //         user_id: profile.user_id,
+  //         message_id: createdMessages[1].id,
+  //         file_item_id: fileItem.id
+  //       }
+  //     })
+  //   )
 
-    finalChatMessages = [
-      ...chatMessages,
-      {
-        message: updatedMessage,
-        fileItems: []
-      },
-      {
-        message: createdMessages[1],
-        fileItems: retrievedFileItems.map(fileItem => fileItem.id)
-      }
-    ]
+  //   finalChatMessages = [
+  //     ...chatMessages,
+  //     {
+  //       message: updatedMessage,
+  //       fileItems: []
+  //     },
+  //     {
+  //       message: createdMessages[1],
+  //       fileItems: retrievedFileItems.map(fileItem => fileItem.id)
+  //     }
+  //   ]
 
-    setChatFileItems(prevFileItems => {
-      const newFileItems = retrievedFileItems.filter(
-        fileItem => !prevFileItems.some(prevItem => prevItem.id === fileItem.id)
-      )
+  //   setChatFileItems(prevFileItems => {
+  //     const newFileItems = retrievedFileItems.filter(
+  //       fileItem => !prevFileItems.some(prevItem => prevItem.id === fileItem.id)
+  //     )
 
-      return [...prevFileItems, ...newFileItems]
-    })
+  //     return [...prevFileItems, ...newFileItems]
+  //   })
 
-    setChatMessages(finalChatMessages)
-  }
+  //   setChatMessages(finalChatMessages)
+  // }
 }

@@ -1,10 +1,10 @@
 import { ChatbotUIContext } from "@/context/context"
-import { getAssistantCollectionsByAssistantId } from "@/db/assistant-collections"
-import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
-import { getAssistantToolsByAssistantId } from "@/db/assistant-tools"
-import { updateChat } from "@/db/chats"
-import { getCollectionFilesByCollectionId } from "@/db/collection-files"
-import { deleteMessagesIncludingAndAfter } from "@/db/messages"
+// import { getAssistantCollectionsByAssistantId } from "@/db/assistant-collections"
+// import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
+// import { getAssistantToolsByAssistantId } from "@/db/assistant-tools"
+// import { updateChat } from "@/db/chats"
+// import { getCollectionFilesByCollectionId } from "@/db/collection-files"
+// import { deleteMessagesIncludingAndAfter } from "@/db/messages"
 import { buildFinalMessages } from "@/lib/build-prompt"
 import { Tables } from "@/supabase/types"
 import { ChatMessage, ChatPayload, LLMID, ModelProvider } from "@/types"
@@ -115,32 +115,32 @@ export const useChatHandler = () => {
 
       let allFiles = []
 
-      const assistantFiles = (
-        await getAssistantFilesByAssistantId(selectedAssistant.id)
-      ).files
-      allFiles = [...assistantFiles]
-      const assistantCollections = (
-        await getAssistantCollectionsByAssistantId(selectedAssistant.id)
-      ).collections
-      for (const collection of assistantCollections) {
-        const collectionFiles = (
-          await getCollectionFilesByCollectionId(collection.id)
-        ).files
-        allFiles = [...allFiles, ...collectionFiles]
-      }
-      const assistantTools = (
-        await getAssistantToolsByAssistantId(selectedAssistant.id)
-      ).tools
+      // const assistantFiles = (
+      //   await getAssistantFilesByAssistantId(selectedAssistant.id)
+      // ).files
+      // allFiles = [...assistantFiles]
+      // const assistantCollections = (
+      //   await getAssistantCollectionsByAssistantId(selectedAssistant.id)
+      // ).collections
+      // for (const collection of assistantCollections) {
+      //   const collectionFiles = (
+      //     await getCollectionFilesByCollectionId(collection.id)
+      //   ).files
+      //   allFiles = [...allFiles, ...collectionFiles]
+      // }
+      // const assistantTools = (
+      //   await getAssistantToolsByAssistantId(selectedAssistant.id)
+      // ).tools
 
-      setSelectedTools(assistantTools)
-      setChatFiles(
-        allFiles.map(file => ({
-          id: file.id,
-          name: file.name,
-          type: file.type,
-          file: null
-        }))
-      )
+      // setSelectedTools(assistantTools)
+      // setChatFiles(
+      //   allFiles.map(file => ({
+      //     id: file.id,
+      //     name: file.name,
+      //     type: file.type,
+      //     file: null
+      //   }))
+      // )
 
       if (allFiles.length > 0) setShowFilesDisplay(true)
     } else if (selectedPreset) {
@@ -339,46 +339,44 @@ export const useChatHandler = () => {
       }
 
       if (!currentChat) {
-        currentChat = await handleCreateChat(
-          chatSettings!,
-          profile!,
-          selectedWorkspace!,
-          messageContent,
-          selectedAssistant!,
-          newMessageFiles,
-          setSelectedChat,
-          setChats,
-          setChatFiles
-        )
+        // currentChat = await handleCreateChat(
+        //   chatSettings!,
+        //   profile!,
+        //   selectedWorkspace!,
+        //   messageContent,
+        //   selectedAssistant!,
+        //   newMessageFiles,
+        //   setSelectedChat,
+        //   setChats,
+        //   setChatFiles
+        // )
       } else {
-        const updatedChat = await updateChat(currentChat.id, {
-          updated_at: new Date().toISOString()
-        })
-
-        setChats(prevChats => {
-          const updatedChats = prevChats.map(prevChat =>
-            prevChat.id === updatedChat.id ? updatedChat : prevChat
-          )
-
-          return updatedChats
-        })
+        // const updatedChat = await updateChat(currentChat.id, {
+        //   updated_at: new Date().toISOString()
+        // })
+        // setChats(prevChats => {
+        //   const updatedChats = prevChats.map(prevChat =>
+        //     prevChat.id === updatedChat.id ? updatedChat : prevChat
+        //   )
+        //   return updatedChats
+        // })
       }
 
-      await handleCreateMessages(
-        chatMessages,
-        currentChat,
-        profile!,
-        modelData!,
-        messageContent,
-        generatedText,
-        newMessageImages,
-        isRegeneration,
-        retrievedFileItems,
-        setChatMessages,
-        setChatFileItems,
-        setChatImages,
-        selectedAssistant
-      )
+      // await handleCreateMessages(
+      //   chatMessages,
+      //   currentChat,
+      //   profile!,
+      //   modelData!,
+      //   messageContent,
+      //   generatedText,
+      //   newMessageImages,
+      //   isRegeneration,
+      //   retrievedFileItems,
+      //   setChatMessages,
+      //   setChatFileItems,
+      //   setChatImages,
+      //   selectedAssistant
+      // )
 
       setIsGenerating(false)
       setFirstTokenReceived(false)
@@ -396,11 +394,11 @@ export const useChatHandler = () => {
   ) => {
     if (!selectedChat) return
 
-    await deleteMessagesIncludingAndAfter(
-      selectedChat.user_id,
-      selectedChat.id,
-      sequenceNumber
-    )
+    // await deleteMessagesIncludingAndAfter(
+    //   selectedChat.user_id,
+    //   selectedChat.id,
+    //   sequenceNumber
+    // )
 
     const filteredMessages = chatMessages.filter(
       chatMessage => chatMessage.message.sequence_number < sequenceNumber

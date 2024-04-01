@@ -1,5 +1,5 @@
 import { ChatbotUIContext } from "@/context/context"
-import { getFileFromStorage } from "@/db/storage/files"
+// import { getFileFromStorage } from "@/db/storage/files"
 import useHotkey from "@/lib/hooks/use-hotkey"
 import { cn } from "@/lib/utils"
 import { ChatFile, MessageImage } from "@/types"
@@ -68,8 +68,8 @@ export const ChatFilesDisplay: FC<ChatFilesDisplayProps> = ({}) => {
 
     if (!fileRecord) return
 
-    const link = await getFileFromStorage(fileRecord.file_path)
-    window.open(link, "_blank")
+    // const link = await getFileFromStorage(fileRecord.file_path)
+    // window.open(link, "_blank")
   }
 
   return showFilesDisplay && combinedMessageFiles.length > 0 ? (

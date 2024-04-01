@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { COLLECTION_DESCRIPTION_MAX, COLLECTION_NAME_MAX } from "@/db/limits"
+// import { COLLECTION_DESCRIPTION_MAX, COLLECTION_NAME_MAX } from "@/db/limits"
 import { Tables } from "@/supabase/types"
 import { CollectionFile } from "@/types"
 import { IconBooks } from "@tabler/icons-react"
@@ -95,7 +95,7 @@ export const CollectionItem: FC<CollectionItemProps> = ({ collection }) => {
                 placeholder="Collection name..."
                 value={name}
                 onChange={e => setName(e.target.value)}
-                maxLength={COLLECTION_NAME_MAX}
+                // maxLength={COLLECTION_NAME_MAX}
               />
             </div>
 
@@ -106,7 +106,7 @@ export const CollectionItem: FC<CollectionItemProps> = ({ collection }) => {
                 placeholder="Collection description..."
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-                maxLength={COLLECTION_DESCRIPTION_MAX}
+                // maxLength={COLLECTION_DESCRIPTION_MAX}
               />
             </div>
           </>

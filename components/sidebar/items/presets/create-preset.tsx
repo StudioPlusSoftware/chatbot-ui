@@ -3,7 +3,7 @@ import { ChatSettingsForm } from "@/components/ui/chat-settings-form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ChatbotUIContext } from "@/context/context"
-import { PRESET_NAME_MAX } from "@/db/limits"
+// import { PRESET_NAME_MAX } from "@/db/limits"
 import { TablesInsert } from "@/supabase/types"
 import { FC, useContext, useState } from "react"
 
@@ -65,7 +65,7 @@ export const CreatePreset: FC<CreatePresetProps> = ({
               placeholder="Preset name..."
               value={name}
               onChange={e => setName(e.target.value)}
-              maxLength={PRESET_NAME_MAX}
+              // maxLength={PRESET_NAME_MAX}
             />
           </div>
 

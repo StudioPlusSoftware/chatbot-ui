@@ -2,17 +2,17 @@
 
 import { Dashboard } from "@/components/ui/dashboard"
 import { ChatbotUIContext } from "@/context/context"
-import { getAssistantWorkspacesByWorkspaceId } from "@/db/assistants"
-import { getChatsByWorkspaceId } from "@/db/chats"
-import { getCollectionWorkspacesByWorkspaceId } from "@/db/collections"
-import { getFileWorkspacesByWorkspaceId } from "@/db/files"
-import { getFoldersByWorkspaceId } from "@/db/folders"
-import { getModelWorkspacesByWorkspaceId } from "@/db/models"
-import { getPresetWorkspacesByWorkspaceId } from "@/db/presets"
-import { getPromptWorkspacesByWorkspaceId } from "@/db/prompts"
-import { getAssistantImageFromStorage } from "@/db/storage/assistant-images"
-import { getToolWorkspacesByWorkspaceId } from "@/db/tools"
-import { getWorkspaceById } from "@/db/workspaces"
+// import { getAssistantWorkspacesByWorkspaceId } from "@/db/assistants"
+// import { getChatsByWorkspaceId } from "@/db/chats"
+// import { getCollectionWorkspacesByWorkspaceId } from "@/db/collections"
+// import { getFileWorkspacesByWorkspaceId } from "@/db/files"
+// import { getFoldersByWorkspaceId } from "@/db/folders"
+// import { getModelWorkspacesByWorkspaceId } from "@/db/models"
+// import { getPresetWorkspacesByWorkspaceId } from "@/db/presets"
+// import { getPromptWorkspacesByWorkspaceId } from "@/db/prompts"
+// import { getAssistantImageFromStorage } from "@/db/storage/assistant-images"
+// import { getToolWorkspacesByWorkspaceId } from "@/db/tools"
+// import { getWorkspaceById } from "@/db/workspaces"
 import { convertBlobToBase64 } from "@/lib/blob-to-b64"
 import { supabase } from "@/lib/supabase/browser-client"
 import { LLMID } from "@/types"
@@ -90,45 +90,45 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const fetchWorkspaceData = async (workspaceId: string) => {
     setLoading(true)
 
-    const workspace = await getWorkspaceById(workspaceId)
-    setSelectedWorkspace(workspace)
+    // const workspace = await getWorkspaceById(workspaceId)
+    // setSelectedWorkspace(workspace)
 
-    const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
-    setAssistants(assistantData.assistants)
+    // const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
+    // setAssistants(assistantData.assistants)
 
-    for (const assistant of assistantData.assistants) {
-      let url = ""
+    // for (const assistant of assistantData.assistants) {
+    //   let url = ""
 
-      if (assistant.image_path) {
-        url = (await getAssistantImageFromStorage(assistant.image_path)) || ""
-      }
+    //   if (assistant.image_path) {
+    //     url = (await getAssistantImageFromStorage(assistant.image_path)) || ""
+    //   }
 
-      if (url) {
-        const response = await fetch(url)
-        const blob = await response.blob()
-        const base64 = await convertBlobToBase64(blob)
+    //   if (url) {
+    //     const response = await fetch(url)
+    //     const blob = await response.blob()
+    //     const base64 = await convertBlobToBase64(blob)
 
-        setAssistantImages(prev => [
-          ...prev,
-          {
-            assistantId: assistant.id,
-            path: assistant.image_path,
-            base64,
-            url
-          }
-        ])
-      } else {
-        setAssistantImages(prev => [
-          ...prev,
-          {
-            assistantId: assistant.id,
-            path: assistant.image_path,
-            base64: "",
-            url
-          }
-        ])
-      }
-    }
+    //     setAssistantImages(prev => [
+    //       ...prev,
+    //       {
+    //         assistantId: assistant.id,
+    //         path: assistant.image_path,
+    //         base64,
+    //         url
+    //       }
+    //     ])
+    //   } else {
+    //     setAssistantImages(prev => [
+    //       ...prev,
+    //       {
+    //         assistantId: assistant.id,
+    //         path: assistant.image_path,
+    //         base64: "",
+    //         url
+    //       }
+    //     ])
+    //   }
+    // }
 
     // const chats = await getChatsByWorkspaceId(workspaceId)
     // setChats(chats)
@@ -155,19 +155,19 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     // const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
     // setModels(modelData.models)
 
-    setChatSettings({
-      model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,
-      prompt:
-        workspace?.default_prompt ||
-        "You are a friendly, helpful AI assistant.",
-      temperature: workspace?.default_temperature || 0.5,
-      contextLength: workspace?.default_context_length || 4096,
-      includeProfileContext: workspace?.include_profile_context || true,
-      includeWorkspaceInstructions:
-        workspace?.include_workspace_instructions || true,
-      embeddingsProvider:
-        (workspace?.embeddings_provider as "openai" | "local") || "openai"
-    })
+    // setChatSettings({
+    //   model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,
+    //   prompt:
+    //     workspace?.default_prompt ||
+    //     "You are a friendly, helpful AI assistant.",
+    //   temperature: workspace?.default_temperature || 0.5,
+    //   contextLength: workspace?.default_context_length || 4096,
+    //   includeProfileContext: workspace?.include_profile_context || true,
+    //   includeWorkspaceInstructions:
+    //     workspace?.include_workspace_instructions || true,
+    //   embeddingsProvider:
+    //     (workspace?.embeddings_provider as "openai" | "local") || "openai"
+    // })
 
     setLoading(false)
   }

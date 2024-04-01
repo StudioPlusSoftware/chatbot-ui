@@ -1,5 +1,5 @@
 import { ChatbotUIContext } from "@/context/context"
-import { createDocXFile, createFile } from "@/db/files"
+// import { createDocXFile, createFile } from "@/db/files"
 import { LLM_LIST } from "@/lib/models/llm/llm-list"
 import mammoth from "mammoth"
 import { useContext, useEffect, useState } from "react"
@@ -92,36 +92,36 @@ export const useSelectFileHandler = () => {
             arrayBuffer
           })
 
-          const createdFile = await createDocXFile(
-            result.value,
-            file,
-            {
-              user_id: profile.user_id,
-              description: "",
-              file_path: "",
-              name: file.name,
-              size: file.size,
-              tokens: 0,
-              type: simplifiedFileType
-            },
-            selectedWorkspace.id,
-            chatSettings.embeddingsProvider
-          )
+          // const createdFile = await createDocXFile(
+          //   result.value,
+          //   file,
+          //   {
+          //     user_id: profile.user_id,
+          //     description: "",
+          //     file_path: "",
+          //     name: file.name,
+          //     size: file.size,
+          //     tokens: 0,
+          //     type: simplifiedFileType
+          //   },
+          //   selectedWorkspace.id,
+          //   chatSettings.embeddingsProvider
+          // )
 
-          setFiles(prev => [...prev, createdFile])
+          // setFiles(prev => [...prev, createdFile])
 
-          setNewMessageFiles(prev =>
-            prev.map(item =>
-              item.id === "loading"
-                ? {
-                    id: createdFile.id,
-                    name: createdFile.name,
-                    type: createdFile.type,
-                    file: file
-                  }
-                : item
-            )
-          )
+          // setNewMessageFiles(prev =>
+          //   prev.map(item =>
+          //     item.id === "loading"
+          //       ? {
+          //           id: createdFile.id,
+          //           name: createdFile.name,
+          //           type: createdFile.type,
+          //           file: file
+          //         }
+          //       : item
+          //   )
+          // )
 
           reader.onloadend = null
 
@@ -154,35 +154,33 @@ export const useSelectFileHandler = () => {
               }
             ])
           } else {
-            const createdFile = await createFile(
-              file,
-              {
-                user_id: profile.user_id,
-                description: "",
-                file_path: "",
-                name: file.name,
-                size: file.size,
-                tokens: 0,
-                type: simplifiedFileType
-              },
-              selectedWorkspace.id,
-              chatSettings.embeddingsProvider
-            )
-
-            setFiles(prev => [...prev, createdFile])
-
-            setNewMessageFiles(prev =>
-              prev.map(item =>
-                item.id === "loading"
-                  ? {
-                      id: createdFile.id,
-                      name: createdFile.name,
-                      type: createdFile.type,
-                      file: file
-                    }
-                  : item
-              )
-            )
+            // const createdFile = await createFile(
+            //   file,
+            //   {
+            //     user_id: profile.user_id,
+            //     description: "",
+            //     file_path: "",
+            //     name: file.name,
+            //     size: file.size,
+            //     tokens: 0,
+            //     type: simplifiedFileType
+            //   },
+            //   selectedWorkspace.id,
+            //   chatSettings.embeddingsProvider
+            // )
+            // setFiles(prev => [...prev, createdFile])
+            // setNewMessageFiles(prev =>
+            //   prev.map(item =>
+            //     item.id === "loading"
+            //       ? {
+            //           id: createdFile.id,
+            //           name: createdFile.name,
+            //           type: createdFile.type,
+            //           file: file
+            //         }
+            //       : item
+            //   )
+            // )
           }
         } catch (error) {
           toast.error("Failed to upload.")

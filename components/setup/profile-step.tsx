@@ -1,10 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  PROFILE_DISPLAY_NAME_MAX,
-  PROFILE_USERNAME_MAX,
-  PROFILE_USERNAME_MIN
-} from "@/db/limits"
+
 import {
   IconCircleCheckFilled,
   IconCircleXFilled,
@@ -50,15 +46,15 @@ export const ProfileStep: FC<ProfileStepProps> = ({
     debounce(async (username: string) => {
       if (!username) return
 
-      if (username.length < PROFILE_USERNAME_MIN) {
-        onUsernameAvailableChange(false)
-        return
-      }
+      // if (username.length < PROFILE_USERNAME_MIN) {
+      //   onUsernameAvailableChange(false)
+      //   return
+      // }
 
-      if (username.length > PROFILE_USERNAME_MAX) {
-        onUsernameAvailableChange(false)
-        return
-      }
+      // if (username.length > PROFILE_USERNAME_MAX) {
+      //   onUsernameAvailableChange(false)
+      //   return
+      // }
 
       const usernameRegex = /^[a-zA-Z0-9_]+$/
       if (!usernameRegex.test(username)) {
@@ -110,8 +106,8 @@ export const ProfileStep: FC<ProfileStepProps> = ({
               onUsernameChange(e.target.value)
               checkUsernameAvailability(e.target.value)
             }}
-            minLength={PROFILE_USERNAME_MIN}
-            maxLength={PROFILE_USERNAME_MAX}
+            // minLength={PROFILE_USERNAME_MIN}
+            // maxLength={PROFILE_USERNAME_MAX}
           />
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -125,7 +121,7 @@ export const ProfileStep: FC<ProfileStepProps> = ({
           </div>
         </div>
 
-        <LimitDisplay used={username.length} limit={PROFILE_USERNAME_MAX} />
+        {/* <LimitDisplay used={username.length} limit={PROFILE_USERNAME_MAX} /> */}
       </div>
 
       <div className="space-y-1">
@@ -135,13 +131,13 @@ export const ProfileStep: FC<ProfileStepProps> = ({
           placeholder="Your Name"
           value={displayName}
           onChange={e => onDisplayNameChange(e.target.value)}
-          maxLength={PROFILE_DISPLAY_NAME_MAX}
+          // maxLength={PROFILE_DISPLAY_NAME_MAX}
         />
-
+        {/* 
         <LimitDisplay
           used={displayName.length}
           limit={PROFILE_DISPLAY_NAME_MAX}
-        />
+        /> */}
       </div>
     </>
   )

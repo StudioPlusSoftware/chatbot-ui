@@ -7,7 +7,7 @@ import {
   PopoverTrigger
 } from "@/components/ui/popover"
 import { ChatbotUIContext } from "@/context/context"
-import { createWorkspace } from "@/db/workspaces"
+// import { createWorkspace } from "@/db/workspaces"
 import useHotkey from "@/lib/hooks/use-hotkey"
 import { IconBuilding, IconHome, IconPlus } from "@tabler/icons-react"
 import { ChevronsUpDown } from "lucide-react"
@@ -47,27 +47,27 @@ export const WorkspaceSwitcher: FC<WorkspaceSwitcherProps> = ({}) => {
   const handleCreateWorkspace = async () => {
     if (!selectedWorkspace) return
 
-    const createdWorkspace = await createWorkspace({
-      user_id: selectedWorkspace.user_id,
-      default_context_length: selectedWorkspace.default_context_length,
-      default_model: selectedWorkspace.default_model,
-      default_prompt: selectedWorkspace.default_prompt,
-      default_temperature: selectedWorkspace.default_temperature,
-      description: "",
-      embeddings_provider: "openai",
-      include_profile_context: selectedWorkspace.include_profile_context,
-      include_workspace_instructions:
-        selectedWorkspace.include_workspace_instructions,
-      instructions: selectedWorkspace.instructions,
-      is_home: false,
-      name: "New Workspace"
-    })
+    // const createdWorkspace = await createWorkspace({
+    //   user_id: selectedWorkspace.user_id,
+    //   default_context_length: selectedWorkspace.default_context_length,
+    //   default_model: selectedWorkspace.default_model,
+    //   default_prompt: selectedWorkspace.default_prompt,
+    //   default_temperature: selectedWorkspace.default_temperature,
+    //   description: "",
+    //   embeddings_provider: "openai",
+    //   include_profile_context: selectedWorkspace.include_profile_context,
+    //   include_workspace_instructions:
+    //     selectedWorkspace.include_workspace_instructions,
+    //   instructions: selectedWorkspace.instructions,
+    //   is_home: false,
+    //   name: "New Workspace"
+    // })
 
-    setWorkspaces([...workspaces, createdWorkspace])
-    setSelectedWorkspace(createdWorkspace)
-    setOpen(false)
+    // setWorkspaces([...workspaces, createdWorkspace])
+    // setSelectedWorkspace(createdWorkspace)
+    // setOpen(false)
 
-    return router.push(`/${createdWorkspace.id}/chat`)
+    // return router.push(`/${createdWorkspace.id}/chat`)
   }
 
   const getWorkspaceName = (workspaceId: string) => {

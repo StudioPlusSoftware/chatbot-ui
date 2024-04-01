@@ -1,10 +1,10 @@
 import { ChatbotUIContext } from "@/context/context"
-import { WORKSPACE_INSTRUCTIONS_MAX } from "@/db/limits"
-import {
-  getWorkspaceImageFromStorage,
-  uploadWorkspaceImage
-} from "@/db/storage/workspace-images"
-import { updateWorkspace } from "@/db/workspaces"
+// import { WORKSPACE_INSTRUCTIONS_MAX } from "@/db/limits"
+// import {
+//   getWorkspaceImageFromStorage,
+//   uploadWorkspaceImage
+// } from "@/db/storage/workspace-images"
+// import { updateWorkspace } from "@/db/workspaces"
 import { convertBlobToBase64 } from "@/lib/blob-to-b64"
 import { LLMID } from "@/types"
 import { IconHome, IconSettings } from "@tabler/icons-react"
@@ -81,42 +81,39 @@ export const WorkspaceSettings: FC<WorkspaceSettingsProps> = ({}) => {
     let imagePath = ""
 
     if (selectedImage) {
-      imagePath = await uploadWorkspaceImage(selectedWorkspace, selectedImage)
-
-      const url = (await getWorkspaceImageFromStorage(imagePath)) || ""
-
-      if (url) {
-        const response = await fetch(url)
-        const blob = await response.blob()
-        const base64 = await convertBlobToBase64(blob)
-
-        setWorkspaceImages(prev => [
-          ...prev,
-          {
-            workspaceId: selectedWorkspace.id,
-            path: imagePath,
-            base64,
-            url
-          }
-        ])
-      }
+      // imagePath = await uploadWorkspaceImage(selectedWorkspace, selectedImage)
+      // const url = (await getWorkspaceImageFromStorage(imagePath)) || ""
+      // if (url) {
+      //   const response = await fetch(url)
+      //   const blob = await response.blob()
+      //   const base64 = await convertBlobToBase64(blob)
+      //   setWorkspaceImages(prev => [
+      //     ...prev,
+      //     {
+      //       workspaceId: selectedWorkspace.id,
+      //       path: imagePath,
+      //       base64,
+      //       url
+      //     }
+      //   ])
+      // }
     }
 
-    const updatedWorkspace = await updateWorkspace(selectedWorkspace.id, {
-      ...selectedWorkspace,
-      name,
-      description,
-      image_path: imagePath,
-      instructions,
-      default_model: defaultChatSettings.model,
-      default_prompt: defaultChatSettings.prompt,
-      default_temperature: defaultChatSettings.temperature,
-      default_context_length: defaultChatSettings.contextLength,
-      embeddings_provider: defaultChatSettings.embeddingsProvider,
-      include_profile_context: defaultChatSettings.includeProfileContext,
-      include_workspace_instructions:
-        defaultChatSettings.includeWorkspaceInstructions
-    })
+    // const updatedWorkspace = await updateWorkspace(selectedWorkspace.id, {
+    //   ...selectedWorkspace,
+    //   name,
+    //   description,
+    //   image_path: imagePath,
+    //   instructions,
+    //   default_model: defaultChatSettings.model,
+    //   default_prompt: defaultChatSettings.prompt,
+    //   default_temperature: defaultChatSettings.temperature,
+    //   default_context_length: defaultChatSettings.contextLength,
+    //   embeddings_provider: defaultChatSettings.embeddingsProvider,
+    //   include_profile_context: defaultChatSettings.includeProfileContext,
+    //   include_workspace_instructions:
+    //     defaultChatSettings.includeWorkspaceInstructions
+    // })
 
     if (
       defaultChatSettings.model &&
@@ -142,16 +139,16 @@ export const WorkspaceSettings: FC<WorkspaceSettingsProps> = ({}) => {
     }
 
     setIsOpen(false)
-    setSelectedWorkspace(updatedWorkspace)
-    setWorkspaces(workspaces => {
-      return workspaces.map(workspace => {
-        if (workspace.id === selectedWorkspace.id) {
-          return updatedWorkspace
-        }
+    // setSelectedWorkspace(updatedWorkspace)
+    // setWorkspaces(workspaces => {
+    //   return workspaces.map(workspace => {
+    //     if (workspace.id === selectedWorkspace.id) {
+    //       return updatedWorkspace
+    //     }
 
-        return workspace
-      })
-    })
+    //     return workspace
+    //   })
+    // })
 
     toast.success("Workspace updated!")
   }
@@ -254,10 +251,10 @@ export const WorkspaceSettings: FC<WorkspaceSettingsProps> = ({}) => {
                   maxLength={1500}
                 />
 
-                <LimitDisplay
+                {/* <LimitDisplay
                   used={instructions.length}
-                  limit={WORKSPACE_INSTRUCTIONS_MAX}
-                />
+                  // limit={WORKSPACE_INSTRUCTIONS_MAX}
+                /> */}
               </div>
             </TabsContent>
 

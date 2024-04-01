@@ -1,11 +1,11 @@
 "use client"
 
 import { ChatbotUIContext } from "@/context/context"
-import { getProfileByUserId, updateProfile } from "@/db/profile"
-import {
-  getHomeWorkspaceByUserId,
-  getWorkspacesByUserId
-} from "@/db/workspaces"
+// import { getProfileByUserId, updateProfile } from "@/db/profile"
+// import {
+//   getHomeWorkspaceByUserId,
+//   getWorkspacesByUserId
+// } from "@/db/workspaces"
 import {
   fetchHostedModels,
   fetchOpenRouterModels
@@ -70,31 +70,31 @@ export default function SetupPage() {
       } else {
         const user = session.user
 
-        const profile = await getProfileByUserId(user.id)
-        setProfile(profile)
-        setUsername(profile.username)
+        // const profile = await getProfileByUserId(user.id)
+        // setProfile(profile)
+        // setUsername(profile.username)
 
-        if (!profile.has_onboarded) {
-          setLoading(false)
-        } else {
-          const data = await fetchHostedModels(profile)
+        // if (!profile.has_onboarded) {
+        //   setLoading(false)
+        // } else {
+        //   const data = await fetchHostedModels(profile)
 
-          if (!data) return
+        //   if (!data) return
 
-          setEnvKeyMap(data.envKeyMap)
-          setAvailableHostedModels(data.hostedModels)
+        //   setEnvKeyMap(data.envKeyMap)
+        //   setAvailableHostedModels(data.hostedModels)
 
-          if (profile["openrouter_api_key"] || data.envKeyMap["openrouter"]) {
-            const openRouterModels = await fetchOpenRouterModels()
-            if (!openRouterModels) return
-            setAvailableOpenRouterModels(openRouterModels)
-          }
+        //   if (profile["openrouter_api_key"] || data.envKeyMap["openrouter"]) {
+        //     const openRouterModels = await fetchOpenRouterModels()
+        //     if (!openRouterModels) return
+        //     setAvailableOpenRouterModels(openRouterModels)
+        //   }
 
-          const homeWorkspaceId = await getHomeWorkspaceByUserId(
-            session.user.id
-          )
-          return router.push(`/${homeWorkspaceId}/chat`)
-        }
+        //   const homeWorkspaceId = await getHomeWorkspaceByUserId(
+        //     session.user.id
+        //   )
+        //   return router.push(`/${homeWorkspaceId}/chat`)
+        // }
       }
     })()
   }, [])
@@ -118,41 +118,41 @@ export default function SetupPage() {
     }
 
     const user = session.user
-    const profile = await getProfileByUserId(user.id)
+    // const profile = await getProfileByUserId(user.id)
 
-    const updateProfilePayload: TablesUpdate<"profiles"> = {
-      ...profile,
-      has_onboarded: true,
-      display_name: displayName,
-      username,
-      openai_api_key: openaiAPIKey,
-      openai_organization_id: openaiOrgID,
-      anthropic_api_key: anthropicAPIKey,
-      google_gemini_api_key: googleGeminiAPIKey,
-      mistral_api_key: mistralAPIKey,
-      groq_api_key: groqAPIKey,
-      perplexity_api_key: perplexityAPIKey,
-      openrouter_api_key: openrouterAPIKey,
-      use_azure_openai: useAzureOpenai,
-      azure_openai_api_key: azureOpenaiAPIKey,
-      azure_openai_endpoint: azureOpenaiEndpoint,
-      azure_openai_35_turbo_id: azureOpenai35TurboID,
-      azure_openai_45_turbo_id: azureOpenai45TurboID,
-      azure_openai_45_vision_id: azureOpenai45VisionID,
-      azure_openai_embeddings_id: azureOpenaiEmbeddingsID
-    }
+    // const updateProfilePayload: TablesUpdate<"profiles"> = {
+    //   ...profile,
+    //   has_onboarded: true,
+    //   display_name: displayName,
+    //   username,
+    //   openai_api_key: openaiAPIKey,
+    //   openai_organization_id: openaiOrgID,
+    //   anthropic_api_key: anthropicAPIKey,
+    //   google_gemini_api_key: googleGeminiAPIKey,
+    //   mistral_api_key: mistralAPIKey,
+    //   groq_api_key: groqAPIKey,
+    //   perplexity_api_key: perplexityAPIKey,
+    //   openrouter_api_key: openrouterAPIKey,
+    //   use_azure_openai: useAzureOpenai,
+    //   azure_openai_api_key: azureOpenaiAPIKey,
+    //   azure_openai_endpoint: azureOpenaiEndpoint,
+    //   azure_openai_35_turbo_id: azureOpenai35TurboID,
+    //   azure_openai_45_turbo_id: azureOpenai45TurboID,
+    //   azure_openai_45_vision_id: azureOpenai45VisionID,
+    //   azure_openai_embeddings_id: azureOpenaiEmbeddingsID
+    // }
 
-    const updatedProfile = await updateProfile(profile.id, updateProfilePayload)
-    setProfile(updatedProfile)
+    // const updatedProfile = await updateProfile(profile.id, updateProfilePayload)
+    // setProfile(updatedProfile)
 
-    const workspaces = await getWorkspacesByUserId(profile.user_id)
-    const homeWorkspace = workspaces.find(w => w.is_home)
+    // const workspaces = await getWorkspacesByUserId(profile.user_id)
+    // const homeWorkspace = workspaces.find(w => w.is_home)
 
     // There will always be a home workspace
-    setSelectedWorkspace(homeWorkspace!)
-    setWorkspaces(workspaces)
+    // setSelectedWorkspace(homeWorkspace!)
+    // setWorkspaces(workspaces)
 
-    return router.push(`/${homeWorkspace?.id}/chat`)
+    // return router.push(`/${homeWorkspace?.id}/chat`)
   }
 
   const renderStep = (stepNum: number) => {

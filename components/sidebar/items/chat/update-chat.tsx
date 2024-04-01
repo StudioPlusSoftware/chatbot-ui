@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ChatbotUIContext } from "@/context/context"
-import { updateChat } from "@/db/chats"
+// import { updateChat } from "@/db/chats"
 import { Tables } from "@/supabase/types"
 import { IconEdit } from "@tabler/icons-react"
 import { FC, useContext, useRef, useState } from "react"
@@ -28,12 +28,12 @@ export const UpdateChat: FC<UpdateChatProps> = ({ chat }) => {
   const [name, setName] = useState(chat.name)
 
   const handleUpdateChat = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const updatedChat = await updateChat(chat.id, {
-      name
-    })
-    setChats(prevState =>
-      prevState.map(c => (c.id === chat.id ? updatedChat : c))
-    )
+    // const updatedChat = await updateChat(chat.id, {
+    //   name
+    // })
+    // setChats(prevState =>
+    //   prevState.map(c => (c.id === chat.id ? updatedChat : c))
+    // )
 
     setShowChatDialog(false)
   }

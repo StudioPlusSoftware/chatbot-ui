@@ -1,8 +1,8 @@
 import { FileIcon } from "@/components/ui/file-icon"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { FILE_DESCRIPTION_MAX, FILE_NAME_MAX } from "@/db/limits"
-import { getFileFromStorage } from "@/db/storage/files"
+// import { FILE_DESCRIPTION_MAX, FILE_NAME_MAX } from "@/db/limits"
+// import { getFileFromStorage } from "@/db/storage/files"
 import { Tables } from "@/supabase/types"
 import { FC, useState } from "react"
 import { SidebarItem } from "../all/sidebar-display-item"
@@ -17,8 +17,8 @@ export const FileItem: FC<FileItemProps> = ({ file }) => {
   const [description, setDescription] = useState(file.description)
 
   const getLinkAndView = async () => {
-    const link = await getFileFromStorage(file.file_path)
-    window.open(link, "_blank")
+    // const link = await getFileFromStorage(file.file_path)
+    // window.open(link, "_blank")
   }
 
   return (
@@ -52,7 +52,7 @@ export const FileItem: FC<FileItemProps> = ({ file }) => {
               placeholder="File name..."
               value={name}
               onChange={e => setName(e.target.value)}
-              maxLength={FILE_NAME_MAX}
+              // maxLength={FILE_NAME_MAX}
             />
           </div>
 
@@ -63,7 +63,7 @@ export const FileItem: FC<FileItemProps> = ({ file }) => {
               placeholder="File description..."
               value={description}
               onChange={e => setDescription(e.target.value)}
-              maxLength={FILE_DESCRIPTION_MAX}
+              // maxLength={FILE_DESCRIPTION_MAX}
             />
           </div>
         </>
