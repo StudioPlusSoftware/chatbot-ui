@@ -12,7 +12,7 @@ import {
   fetchOllamaModels,
   fetchOpenRouterModels
 } from "@/lib/models/fetch-models"
-import { supabase } from "@/lib/supabase/browser-client"
+// import { supabase } from "@/lib/supabase/browser-client"
 import { Tables } from "@/supabase/types"
 import {
   ChatFile,
@@ -125,76 +125,63 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
   useEffect(() => {
     ;(async () => {
-      const profile = await fetchStartingData()
-
-      if (profile) {
-        const hostedModelRes = await fetchHostedModels(profile)
-        if (!hostedModelRes) return
-
-        setEnvKeyMap(hostedModelRes.envKeyMap)
-        setAvailableHostedModels(hostedModelRes.hostedModels)
-
-        if (
-          profile["openrouter_api_key"] ||
-          hostedModelRes.envKeyMap["openrouter"]
-        ) {
-          const openRouterModels = await fetchOpenRouterModels()
-          if (!openRouterModels) return
-          setAvailableOpenRouterModels(openRouterModels)
-        }
-      }
-
-      if (process.env.NEXT_PUBLIC_OLLAMA_URL) {
-        const localModels = await fetchOllamaModels()
-        if (!localModels) return
-        setAvailableLocalModels(localModels)
-      }
+      // const profile = await fetchStartingData()
+      // if (profile) {
+      //   const hostedModelRes = await fetchHostedModels(profile)
+      //   if (!hostedModelRes) return
+      //   setEnvKeyMap(hostedModelRes.envKeyMap)
+      //   setAvailableHostedModels(hostedModelRes.hostedModels)
+      //   if (
+      //     profile["openrouter_api_key"] ||
+      //     hostedModelRes.envKeyMap["openrouter"]
+      //   ) {
+      //     const openRouterModels = await fetchOpenRouterModels()
+      //     if (!openRouterModels) return
+      //     setAvailableOpenRouterModels(openRouterModels)
+      //   }
+      // }
+      // if (process.env.NEXT_PUBLIC_OLLAMA_URL) {
+      //   const localModels = await fetchOllamaModels()
+      //   if (!localModels) return
+      //   setAvailableLocalModels(localModels)
+      // }
     })()
   }, [])
 
   const fetchStartingData = async () => {
-    const session = (await supabase.auth.getSession()).data.session
-
-    if (session) {
-      const user = session.user
-
-      // const profile = await getProfileByUserId(user.id)
-      // setProfile(profile)
-
-      // if (!profile.has_onboarded) {
-      //   return router.push("/setup")
-      // }
-
-      // const workspaces = await getWorkspacesByUserId(user.id)
-      // setWorkspaces(workspaces)
-
-      // for (const workspace of workspaces) {
-      //   let workspaceImageUrl = ""
-
-      //   if (workspace.image_path) {
-      //     workspaceImageUrl =
-      //       (await getWorkspaceImageFromStorage(workspace.image_path)) || ""
-      //   }
-
-      //   if (workspaceImageUrl) {
-      //     const response = await fetch(workspaceImageUrl)
-      //     const blob = await response.blob()
-      //     const base64 = await convertBlobToBase64(blob)
-
-      //     setWorkspaceImages(prev => [
-      //       ...prev,
-      //       {
-      //         workspaceId: workspace.id,
-      //         path: workspace.image_path,
-      //         base64: base64,
-      //         url: workspaceImageUrl
-      //       }
-      //     ])
-      //   }
-      // }
-
-      return profile
-    }
+    // const session = (await supabase.auth.getSession()).data.session
+    // if (session) {
+    //   const user = session.user
+    // const profile = await getProfileByUserId(user.id)
+    // setProfile(profile)
+    // if (!profile.has_onboarded) {
+    //   return router.push("/setup")
+    // }
+    // const workspaces = await getWorkspacesByUserId(user.id)
+    // setWorkspaces(workspaces)
+    // for (const workspace of workspaces) {
+    //   let workspaceImageUrl = ""
+    //   if (workspace.image_path) {
+    //     workspaceImageUrl =
+    //       (await getWorkspaceImageFromStorage(workspace.image_path)) || ""
+    //   }
+    //   if (workspaceImageUrl) {
+    //     const response = await fetch(workspaceImageUrl)
+    //     const blob = await response.blob()
+    //     const base64 = await convertBlobToBase64(blob)
+    //     setWorkspaceImages(prev => [
+    //       ...prev,
+    //       {
+    //         workspaceId: workspace.id,
+    //         path: workspace.image_path,
+    //         base64: base64,
+    //         url: workspaceImageUrl
+    //       }
+    //     ])
+    //   }
+    // }
+    //   return profile
+    // }
   }
 
   return (

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { ChatbotUIContext } from "@/context/context"
 // import { deleteFolder } from "@/db/folders"
-import { supabase } from "@/lib/supabase/browser-client"
+// import { supabase } from "@/lib/supabase/browser-client"
 import { Tables } from "@/supabase/types"
 import { ContentType } from "@/types"
 import { IconTrash } from "@tabler/icons-react"
@@ -83,14 +83,14 @@ export const DeleteFolder: FC<DeleteFolderProps> = ({
 
     if (!setStateFunction) return
 
-    const { error } = await supabase
-      .from(contentType)
-      .delete()
-      .eq("folder_id", folder.id)
+    // const { error } = await supabase
+    //   .from(contentType)
+    //   .delete()
+    //   .eq("folder_id", folder.id)
 
-    if (error) {
-      toast.error(error.message)
-    }
+    // if (error) {
+    //   toast.error(error.message)
+    // }
 
     setStateFunction((prevItems: any) =>
       prevItems.filter((item: any) => item.folder_id !== folder.id)

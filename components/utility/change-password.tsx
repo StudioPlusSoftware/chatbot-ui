@@ -1,6 +1,6 @@
 "use client"
 
-import { supabase } from "@/lib/supabase/browser-client"
+// import { supabase } from "@/lib/supabase/browser-client"
 import { useRouter } from "next/navigation"
 import { FC, useState } from "react"
 import { Button } from "../ui/button"
@@ -24,7 +24,7 @@ export const ChangePassword: FC<ChangePasswordProps> = () => {
   const handleResetPassword = async () => {
     if (!newPassword) return alert("Please enter your new password.")
 
-    await supabase.auth.updateUser({ password: newPassword })
+    // await supabase.auth.updateUser({ password: newPassword })
 
     alert("Password changed successfully.")
 

@@ -10,7 +10,7 @@ import { ChatbotUIContext } from "@/context/context"
 import { exportLocalStorageAsJSON } from "@/lib/export-old-data"
 import { fetchOpenRouterModels } from "@/lib/models/fetch-models"
 import { LLM_LIST_MAP } from "@/lib/models/llm/llm-list"
-import { supabase } from "@/lib/supabase/browser-client"
+// import { supabase } from "@/lib/supabase/browser-client"
 import { cn } from "@/lib/utils"
 import { OpenRouterLLM } from "@/types"
 import {
@@ -119,7 +119,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
   )
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    // await supabase.auth.signOut()
     router.push("/login")
     router.refresh()
     return
