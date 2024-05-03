@@ -260,10 +260,11 @@ export const fetchChatResponse = async (
   setChatMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
 ) => {
   //
-  const response = await fetch("https://mystratusaiservice-staging.azurewebsites.net/helpdocs", {
+  const response = await fetch("https://stratus-langchain.azurewebsites.net/stream_chat/", {
     method: "POST",
     headers: {
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(body),
     signal: controller.signal

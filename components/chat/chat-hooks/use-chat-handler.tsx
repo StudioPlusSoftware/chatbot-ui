@@ -279,19 +279,29 @@ export const useChatHandler = () => {
         )
         //
         const response = await fetch(
-          "https://mystratusaiservice-staging.azurewebsites.net/helpdocs",
+          "https://stratus-langchain.azurewebsites.net/stream_chat/",
           {
-            method: "POST",
+            method: "post",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-              chatSettings: payload.chatSettings,
-              messages: formattedMessages,
-              selectedTools
-            })
+            body: JSON.stringify({ message: userInput })
           }
         )
+        // const reader = response?.body?.getReader()
+
+        // const read = () => {
+        //   reader?.read().then(({ done, value }) => {
+        //     if (done) {
+        //       alert("done")
+        //       return
+        //     }
+        //     const decoder = new TextDecoder()
+        //     console.log(decoder.decode(value))
+        //     read()
+        //   })
+        // }
+        // read()
 
         setToolInUse("none")
 
