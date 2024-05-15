@@ -285,7 +285,10 @@ export const useChatHandler = () => {
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ message: userInput })
+            body: JSON.stringify({
+              message: userInput,
+              chat_history: chatMessages
+            })
           }
         )
         // const reader = response?.body?.getReader()
