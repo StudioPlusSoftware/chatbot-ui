@@ -1,0 +1,45 @@
+#Multi-configuration and multi-agent job options are not exported to YAML. Configure these options using documentation guidance: https://docs.microsoft.com/vsts/pipelines/process/phases
+
+pool:
+  name: Default
+steps:
+- task: NodeTool@0
+  displayName: 'Use Node >=16.0.0'
+  inputs:
+    versionSpec: '>=16.0.0'
+    checkLatest: true
+
+- task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@3
+  displayName: 'Use Yarn 1.22.4'
+  inputs:
+    versionSpec: 1.22.4
+
+- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
+  displayName: 'Yarn Install Dependencies'
+  inputs:
+    arguments: install
+
+- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@3
+  displayName: 'Yarn build'
+  inputs:
+    arguments: build
+
+- task: CopyFiles@2
+  displayName: 'Copy web.config to build'
+  inputs:
+    Contents: web.config
+    TargetFolder: '$(System.DefaultWorkingDirectory)/build'
+
+- task: FtpUpload@2
+  displayName: 'FTP Upload to myStratusMobileAppUSCentral Dev'
+  inputs:
+    credentialsOption: inputs
+    serverUrl: 'ftps://waws-prod-dm1-147.ftp.azurewebsites.windows.net/site/wwwroot'
+    username: 'mystratusmobileappuscentral__staging\$mystratusmobileappuscentral__staging'
+    password: M1y0eJpdkwdCemvLdhct15y7nxiKnHaYx2LHxBwwoWsidkMp10986W51vzAF
+    rootDirectory: '$(System.DefaultWorkingDirectory)/build'
+    remoteDirectory: /site/wwwroot
+    preservePaths: true
+    trustSSL: true
+
+
