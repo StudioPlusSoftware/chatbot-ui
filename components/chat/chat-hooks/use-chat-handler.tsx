@@ -194,6 +194,9 @@ export const useChatHandler = () => {
     isRegeneration: boolean
   ) => {
     const startingInput = messageContent
+    if (abortController) {
+      abortController.abort()
+    }
     try {
       setUserInput("")
       setIsGenerating(true)
