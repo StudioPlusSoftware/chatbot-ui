@@ -20,6 +20,12 @@ import { useChatHandler } from "./chat-hooks/use-chat-handler"
 import { useChatHistoryHandler } from "./chat-hooks/use-chat-history"
 import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@radix-ui/react-popover"
+import { Button } from "../ui/button"
 
 interface ChatInputProps {}
 
@@ -56,9 +62,15 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
     setChatSettings,
     selectedTools,
     setSelectedTools,
-    assistantImages
+    assistantImages,
+    chatType,
+    setChatType
   } = useContext(ChatbotUIContext)
 
+  useEffect(() => {
+    setChatType("help")
+  }, [])
+  const [open, setOpen] = useState(false)
   const {
     chatInputRef,
     handleSendMessage,
@@ -292,6 +304,36 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
             />
           )}
         </div>
+      </div>
+      {console.log(chatType)}
+      <div className="border-input relative mt-3 flex min-h-[60px] w-10 rounded-xl border-2">
+        <Popover open={open}>
+          <PopoverTrigger>
+            <Button onClick={() => setOpen(true)}>{chatType}</Button>
+          </PopoverTrigger>
+
+          <PopoverContent
+            className="bg-background border-input relative flex max-h-[calc(100vh-60px)] w-[300px] flex-col space-y-4 overflow-auto rounded-lg border-2 p-6 sm:w-[350px] md:w-[400px] dark:border-none"
+            align="end"
+          >
+            <div
+              onClick={() => {
+                setChatType("help")
+                setOpen(false)
+              }}
+            >
+              Help Docs
+            </div>
+            <div
+              onClick={() => {
+                setChatType("logging")
+                setOpen(false)
+              }}
+            >
+              Logging Database
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
     </>
   )

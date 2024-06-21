@@ -75,6 +75,7 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
   // PASSIVE CHAT STORE
   const [userInput, setUserInput] = useState<string>("")
+  const [chatType, setChatType] = useState<string>("")
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
   const [chatSettings, setChatSettings] = useState<ChatSettings>({
     model: "gpt-4-turbo-preview",
@@ -190,7 +191,8 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         // PROFILE STORE
         profile,
         setProfile,
-
+        chatType,
+        setChatType,
         // ITEMS STORE
         assistants,
         setAssistants,

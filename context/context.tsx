@@ -68,6 +68,8 @@ interface ChatbotUIContext {
   setOpenaiAssistants: Dispatch<SetStateAction<any[]>>
 
   // PASSIVE CHAT STORE
+  chatType: string
+  setChatType: Dispatch<SetStateAction<string>>
   userInput: string
   setUserInput: Dispatch<SetStateAction<string>>
   chatMessages: ChatMessage[]
@@ -194,6 +196,8 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   setOpenaiAssistants: () => {},
 
   // PASSIVE CHAT STORE
+  chatType: "help",
+  setChatType: () => {},
   userInput: "",
   setUserInput: () => {},
   selectedChat: null,
@@ -214,6 +218,7 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   setAbortController: () => {},
 
   // CHAT INPUT COMMAND STORE
+
   isPromptPickerOpen: false,
   setIsPromptPickerOpen: () => {},
   slashCommand: "",

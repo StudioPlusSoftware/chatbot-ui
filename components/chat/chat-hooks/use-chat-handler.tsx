@@ -66,7 +66,9 @@ export const useChatHandler = () => {
     models,
     isPromptPickerOpen,
     isFilePickerOpen,
-    isToolPickerOpen
+    isToolPickerOpen,
+    chatType,
+    setChatType
   } = useContext(ChatbotUIContext)
 
   const chatInputRef = useRef<HTMLTextAreaElement>(null)
@@ -281,20 +283,39 @@ export const useChatHandler = () => {
           chatImages
         )
         //
-        const response = await fetch(
-          "https://stratus-langchain.azurewebsites.net/stream_chat/",
-          {
-            method: "post",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              message: userInput,
-              chat_history: chatMessages,
-              prompt: chatSettings ? chatSettings.prompt : undefined
-            })
-          }
-        )
+        var response
+        if (chatType === "logging") {
+          response = await fetch(
+            "https://stratus-langchain.azurewebsites.net/stream_chat_logging/",
+            {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                message: userInput,
+                chat_history: chatMessages,
+                prompt: chatSettings ? chatSettings.prompt : undefined
+              })
+            }
+          )
+        } else {
+          response = await fetch(
+            "https://stratus-langchain.azurewebsites.net/stream_chat/",
+            {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                message: userInput,
+                chat_history: chatMessages,
+                prompt: chatSettings ? chatSettings.prompt : undefined
+              })
+            }
+          )
+        }
+
         // const reader = response?.body?.getReader()
 
         // const read = () => {
