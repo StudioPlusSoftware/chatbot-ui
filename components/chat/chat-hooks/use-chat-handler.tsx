@@ -290,7 +290,8 @@ export const useChatHandler = () => {
             },
             body: JSON.stringify({
               message: userInput,
-              chat_history: chatMessages
+              chat_history: chatMessages,
+              prompt: chatSettings ? chatSettings.prompt : undefined
             })
           }
         )
