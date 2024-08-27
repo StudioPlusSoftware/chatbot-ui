@@ -32,9 +32,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   const [contentType, setContentType] = useState<ContentType>(
     tabValue as ContentType
   )
-  const [showSidebar, setShowSidebar] = useState(
-    localStorage.getItem("showSidebar") === "true"
-  )
+  const [showSidebar, setShowSidebar] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
 
   const onFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -113,7 +111,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
           children
         )}
 
-        <Button
+        {/* <Button
           className={cn(
             "absolute left-[4px] top-[50%] z-10 size-[32px] cursor-pointer"
           )}
@@ -126,7 +124,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
           onClick={handleToggleSidebar}
         >
           <IconChevronCompactRight size={24} />
-        </Button>
+        </Button> */}
       </div>
     </div>
   )
