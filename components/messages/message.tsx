@@ -23,6 +23,7 @@ import { TextareaAutosize } from "../ui/textarea-autosize"
 import { WithTooltip } from "../ui/with-tooltip"
 import { MessageActions } from "./message-actions"
 import { MessageMarkdown } from "./message-markdown"
+import SPLogo from "../icons/StratusBot32x32.png"
 
 const ICON_SIZE = 32
 
@@ -221,7 +222,7 @@ export const Message: FC<MessageProps> = ({
                       height: `${ICON_SIZE}px`
                     }}
                     className="rounded"
-                    src={messageAssistantImage}
+                    src={SPLogo}
                     alt="assistant image"
                     height={ICON_SIZE}
                     width={ICON_SIZE}
@@ -229,13 +230,7 @@ export const Message: FC<MessageProps> = ({
                 ) : (
                   <WithTooltip
                     display={<div>{MODEL_DATA?.modelName}</div>}
-                    trigger={
-                      <ModelIcon
-                        provider={modelDetails?.provider || "custom"}
-                        height={ICON_SIZE}
-                        width={ICON_SIZE}
-                      />
-                    }
+                    trigger={<Image alt="logo" src={SPLogo} />}
                   />
                 )
               ) : profile?.image_url ? (

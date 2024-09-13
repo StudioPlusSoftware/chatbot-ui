@@ -285,35 +285,29 @@ export const useChatHandler = () => {
         //
         var response
         if (chatType === "logging") {
-          response = await fetch(
-            "https://stratus-langchain.azurewebsites.net/stream_chat_logging/",
-            {
-              method: "post",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                message: userInput,
-                chat_history: chatMessages,
-                prompt: chatSettings ? chatSettings.prompt : undefined
-              })
-            }
-          )
+          response = await fetch("http://localhost:8000/stream_chat/", {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              message: userInput,
+              chat_history: chatMessages,
+              prompt: chatSettings ? chatSettings.prompt : undefined
+            })
+          })
         } else {
-          response = await fetch(
-            "https://stratus-langchain.azurewebsites.net/stream_chat/",
-            {
-              method: "post",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                message: userInput,
-                chat_history: chatMessages,
-                prompt: chatSettings ? chatSettings.prompt : undefined
-              })
-            }
-          )
+          response = await fetch("http://localhost:8000/stream_chat/", {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              message: userInput,
+              chat_history: chatMessages,
+              prompt: chatSettings ? chatSettings.prompt : undefined
+            })
+          })
         }
 
         // const reader = response?.body?.getReader()
