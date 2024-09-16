@@ -305,7 +305,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
           )}
         </div>
       </div>
-      {console.log(chatType)}
+      <div className="text-center">Helpbot uses AI. Check for mistakes.</div>
       {/* <div className="border-input relative mt-3 flex min-h-[60px] w-10 rounded-xl border-2">
         <Popover open={open}>
           <PopoverTrigger>
