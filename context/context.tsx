@@ -74,6 +74,8 @@ interface ChatbotUIContext {
   setUserInput: Dispatch<SetStateAction<string>>
   chatMessages: ChatMessage[]
   setChatMessages: Dispatch<SetStateAction<ChatMessage[]>>
+  threadID: string
+  setThreadID: Dispatch<SetStateAction<string>>
   chatSettings: ChatSettings | null
   setChatSettings: Dispatch<SetStateAction<ChatSettings>>
   selectedChat: Tables<"chats"> | null
@@ -204,6 +206,8 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   setSelectedChat: () => {},
   chatMessages: [],
   setChatMessages: () => {},
+  threadID: "",
+  setThreadID: () => {},
   chatSettings: null,
   setChatSettings: () => {},
   chatFileItems: [],

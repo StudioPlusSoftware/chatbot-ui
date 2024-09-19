@@ -21,7 +21,7 @@ import {
   processResponse,
   validateChatSettings
 } from "../chat-helpers"
-
+import { v4 as uuidv4 } from "uuid"
 export const useChatHandler = () => {
   const router = useRouter()
 
@@ -33,6 +33,7 @@ export const useChatHandler = () => {
     profile,
     setIsGenerating,
     setChatMessages,
+    threadID,
     setFirstTokenReceived,
     selectedChat,
     selectedWorkspace,
@@ -274,6 +275,7 @@ export const useChatHandler = () => {
         chatFileItems: chatFileItems
       }
       let generatedText = ""
+      const promptID = uuidv4()
       if (true || selectedTools.length > 0) {
         setToolInUse("Tools")
 
@@ -284,9 +286,11 @@ export const useChatHandler = () => {
         )
         //
         var response
+
         if (chatType === "logging") {
           response = await fetch(
             "https://stratus-langchain.azurewebsites.net/stream_chat/",
+            // "http://localhost:8000/stream_chat/",
             {
               method: "post",
               headers: {
@@ -294,6 +298,8 @@ export const useChatHandler = () => {
               },
               body: JSON.stringify({
                 message: userInput,
+                threadID: threadID,
+                promptID: promptID,
                 chat_history: chatMessages,
                 prompt: chatSettings ? chatSettings.prompt : undefined
               })
@@ -301,7 +307,8 @@ export const useChatHandler = () => {
           )
         } else {
           response = await fetch(
-            "https://stratus-langchain.azurewebsites.net/stream_chat/",
+            // "https://stratus-langchain.azurewebsites.net/stream_chat/",
+            "http://localhost:8000/stream_chat/",
             {
               method: "post",
               headers: {
@@ -310,6 +317,8 @@ export const useChatHandler = () => {
               body: JSON.stringify({
                 message: userInput,
                 chat_history: chatMessages,
+                threadID: threadID,
+                promptID: promptID,
                 prompt: chatSettings ? chatSettings.prompt : undefined
               })
             }
@@ -342,7 +351,8 @@ export const useChatHandler = () => {
           newAbortController,
           setFirstTokenReceived,
           setChatMessages,
-          setToolInUse
+          setToolInUse,
+          promptID
         )
       } else {
         if (modelData!.provider === "ollama") {

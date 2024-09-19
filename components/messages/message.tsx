@@ -11,7 +11,11 @@ import {
   IconCircleFilled,
   IconFileText,
   IconMoodSmile,
-  IconPencil
+  IconPencil,
+  IconThumbUp,
+  IconThumbUpFilled,
+  IconThumbDown,
+  IconThumbDownFilled
 } from "@tabler/icons-react"
 import Image from "next/image"
 import { FC, useContext, useEffect, useRef, useState } from "react"
@@ -35,6 +39,7 @@ interface MessageProps {
   onStartEdit: (message: Tables<"messages">) => void
   onCancelEdit: () => void
   onSubmitEdit: (value: string, sequenceNumber: number) => void
+  promptID?: string
 }
 
 export const Message: FC<MessageProps> = ({
@@ -44,7 +49,8 @@ export const Message: FC<MessageProps> = ({
   isLast,
   onStartEdit,
   onCancelEdit,
-  onSubmitEdit
+  onSubmitEdit,
+  promptID
 }) => {
   const {
     assistants,
@@ -69,7 +75,7 @@ export const Message: FC<MessageProps> = ({
 
   const [isHovering, setIsHovering] = useState(false)
   const [editedMessage, setEditedMessage] = useState(message.content)
-
+  const [feedback, setFeedback] = useState(0)
   const [showImagePreview, setShowImagePreview] = useState(false)
   const [selectedImage, setSelectedImage] = useState<MessageImage | null>(null)
 
@@ -229,7 +235,7 @@ export const Message: FC<MessageProps> = ({
                   />
                 ) : (
                   <WithTooltip
-                    display={<div>{MODEL_DATA?.modelName}</div>}
+                    display={<div>myStratus Helpbot</div>}
                     trigger={<Image alt="logo" src={SPLogo} />}
                   />
                 )
@@ -248,17 +254,7 @@ export const Message: FC<MessageProps> = ({
                 />
               )}
 
-              <div className="font-semibold">
-                {message.role === "assistant"
-                  ? message.assistant_id
-                    ? assistants.find(
-                        assistant => assistant.id === message.assistant_id
-                      )?.name
-                    : selectedAssistant
-                      ? selectedAssistant?.name
-                      : MODEL_DATA?.modelName
-                  : profile?.display_name ?? profile?.username}
-              </div>
+              <div className="font-semibold">myStratus Helpbot</div>
             </div>
           )}
           {!firstTokenReceived &&
@@ -285,7 +281,7 @@ export const Message: FC<MessageProps> = ({
                       <div className="flex animate-pulse items-center space-x-2">
                         <IconBolt size={20} />
 
-                        <div>Using {toolInUse}...</div>
+                        <div>Searching...</div>
                       </div>
                     )
                 }
@@ -303,6 +299,63 @@ export const Message: FC<MessageProps> = ({
             <MessageMarkdown content={message.content} />
           )}
         </div>
+
+        {message.role === "assistant" && !isGenerating && (
+          <div style={{ display: "flex", marginTop: "1rem" }}>
+            <div
+              style={{ marginRight: "0.5rem", cursor: "pointer" }}
+              onClick={async () => {
+                setFeedback(2)
+                await fetch(
+                  "https://stratus-langchain.azurewebsites.net/chat_feedback/",
+                  // "http://localhost:8000/chat_feedback/",
+                  {
+                    method: "post",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      promptID: promptID,
+                      feedback: 2
+                    })
+                  }
+                )
+              }}
+            >
+              {feedback === 2 ? (
+                <IconThumbUpFilled size={28} />
+              ) : (
+                <IconThumbUp size={28} />
+              )}
+            </div>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={async () => {
+                setFeedback(1)
+                await fetch(
+                  "https://stratus-langchain.azurewebsites.net/chat_feedback/",
+                  // "http://localhost:8000/chat_feedback/",
+                  {
+                    method: "post",
+                    headers: {
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      promptID: promptID,
+                      feedback: 1
+                    })
+                  }
+                )
+              }}
+            >
+              {feedback === 1 ? (
+                <IconThumbDownFilled size={28} />
+              ) : (
+                <IconThumbDown size={28} />
+              )}
+            </div>
+          </div>
+        )}
 
         {fileItems.length > 0 && (
           <div className="border-primary mt-6 border-t pt-4 font-bold">

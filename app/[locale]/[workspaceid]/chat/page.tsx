@@ -1,5 +1,5 @@
 "use client"
-
+import React, { useEffect } from "react"
 import { ChatHelp } from "@/components/chat/chat-help"
 import { useChatHandler } from "@/components/chat/chat-hooks/use-chat-handler"
 import { ChatInput } from "@/components/chat/chat-input"
@@ -11,17 +11,20 @@ import { ChatbotUIContext } from "@/context/context"
 import useHotkey from "@/lib/hooks/use-hotkey"
 import { useTheme } from "next-themes"
 import { useContext } from "react"
-
+import { v4 as uuidv4 } from "uuid"
 export default function ChatPage() {
   useHotkey("o", () => handleNewChat())
   useHotkey("l", () => {
     handleFocusChatInput()
   })
 
-  const { chatMessages } = useContext(ChatbotUIContext)
+  const { chatMessages, setThreadID } = useContext(ChatbotUIContext)
 
   const { handleNewChat, handleFocusChatInput } = useChatHandler()
-
+  useEffect(() => {
+    const id = uuidv4()
+    setThreadID(id)
+  }, [])
   const { theme } = useTheme()
 
   return (

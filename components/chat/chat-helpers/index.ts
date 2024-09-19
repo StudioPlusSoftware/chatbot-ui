@@ -295,7 +295,8 @@ export const processResponse = async (
   controller: AbortController,
   setFirstTokenReceived: React.Dispatch<React.SetStateAction<boolean>>,
   setChatMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
-  setToolInUse: React.Dispatch<React.SetStateAction<string>>
+  setToolInUse: React.Dispatch<React.SetStateAction<string>>,
+  promptID: any = ""
 ) => {
   let fullText = ""
   let contentToAdd = ""
@@ -332,9 +333,11 @@ export const processResponse = async (
               const updatedChatMessage: ChatMessage = {
                 message: {
                   ...chatMessage.message,
-                  content: fullText
+                  content: fullText,
+                  
                 },
-                fileItems: chatMessage.fileItems
+                fileItems: chatMessage.fileItems,
+                promptID: promptID
               }
 
               return updatedChatMessage
@@ -346,7 +349,21 @@ export const processResponse = async (
       },
       controller.signal
     )
-
+        // Update response in record
+        const res = await fetch(
+          "https://stratus-langchain.azurewebsites.net/update_chat_record/",
+          // "http://localhost:8000/update_chat_record/",
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              response: fullText,
+              promptID: promptID
+            })
+          }
+        )
     return fullText
   } else {
     throw new Error("Response body is null")

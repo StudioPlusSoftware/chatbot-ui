@@ -20,6 +20,7 @@ import { useChatHandler } from "./chat-hooks/use-chat-handler"
 import { useChatHistoryHandler } from "./chat-hooks/use-chat-history"
 import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
+import { v4 as uuidv4 } from "uuid"
 import {
   Popover,
   PopoverContent,
@@ -45,6 +46,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
     userInput,
     chatMessages,
     setChatMessages,
+    setThreadID,
     isGenerating,
     selectedPreset,
     selectedAssistant,
@@ -248,8 +250,13 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
         <>
           <IconCirclePlus
             className="absolute bottom-[12px] left-3 cursor-pointer p-1 hover:opacity-50"
-            size={32}
-            onClick={() => setChatMessages([])}
+            size={40}
+            style={{ marginLeft: "-4rem" }}
+            onClick={() => {
+              const newUUID = uuidv4()
+              setThreadID(newUUID)
+              setChatMessages([])
+            }}
           />
 
           {/* Hidden input to select files from device */}
@@ -267,7 +274,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
 
         <TextareaAutosize
           textareaRef={chatInputRef}
-          className="ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring text-md flex w-full resize-none rounded-md border-none bg-transparent px-14 py-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring text-md flex w-full resize-none rounded-md border-none bg-transparent px-4 py-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           placeholder={t(
             // `Ask anything. Type "@" for assistants, "/" for prompts, "#" for files, and "!" for tools.`
             `Ask anything. `
@@ -305,7 +312,12 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
           )}
         </div>
       </div>
-      <div className="text-center">Helpbot uses AI. Check for mistakes.</div>
+      <div className="text-muted-foreground mt-1 text-center">
+        During the Preview, all prompts are logged to better improve responses.
+      </div>
+      <div className="text-muted-foreground text-center">
+        Helpbot uses AI. Check for mistakes.
+      </div>
       {/* <div className="border-input relative mt-3 flex min-h-[60px] w-10 rounded-xl border-2">
         <Popover open={open}>
           <PopoverTrigger>
