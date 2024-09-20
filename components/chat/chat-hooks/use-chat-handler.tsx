@@ -307,8 +307,8 @@ export const useChatHandler = () => {
           )
         } else {
           response = await fetch(
-            // "https://stratus-langchain.azurewebsites.net/stream_chat/",
-            "http://localhost:8000/stream_chat/",
+            "https://stratus-langchain.azurewebsites.net/stream_chat/",
+            // "http://localhost:8000/stream_chat/",
             {
               method: "post",
               headers: {
