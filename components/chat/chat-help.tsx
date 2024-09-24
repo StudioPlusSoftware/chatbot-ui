@@ -23,7 +23,16 @@ export const ChatHelp: FC<ChatHelpProps> = ({}) => {
   useHotkey("/", () => setIsOpen(prevState => !prevState))
 
   const [isOpen, setIsOpen] = useState(false)
-  return null
+  return (
+    <Link
+      className="cursor-pointer hover:opacity-50"
+      href="https://studioplussoftware.com/mystratus-helpbot"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <IconQuestionMark className="bg-primary text-secondary size-[24px] cursor-pointer rounded-full p-0.5 opacity-60 hover:opacity-50 lg:size-[30px] lg:p-1" />
+    </Link>
+  )
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
