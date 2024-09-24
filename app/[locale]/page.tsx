@@ -5,7 +5,7 @@ import { IconArrowRight } from "@tabler/icons-react"
 import { useTheme } from "next-themes"
 import Link from "next/link"
 // import SPLogo from "../icons/StratusBot256x256.png"
-import SPLogo from "../../components/icons/StratusBot64x64.png"
+import SPLogo from "../../components/icons/StratusBot256x256.png"
 import Image from "next/image"
 
 export default function HomePage() {
